@@ -1,0 +1,37 @@
+<head>
+  <title>Cerejeira</title>
+  <meta description="Pétalas cor-de-rosa caindo devagar sobre um fundo vinho escuro, como uma cerejeira à noite." />
+  <meta publisher="Hydraflow" />
+  <meta property="bg" label="Fundo" type="color" default="#3a0010" />
+  <meta property="petal" label="Pétalas" type="color" default="#ff7aa8" />
+  <meta property="amount" label="Quantidade" type="number" min="10" max="120" default="55" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="35" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  const W = 320, H = 200;
+  const P = [];
+  const spawn = (p, top) => { p.x = Math.random() * W; p.y = top ? -10 : Math.random() * H; p.r = 3 + Math.random() * 5; p.a = Math.random() * 6.28; p.s = 0.5 + Math.random(); return p; };
+  let t = 0;
+  function frame() {
+    const v = speed / 40;
+    t += 0.016 * v;
+    while (P.length < amount) P.push(spawn({}, false));
+    P.length = Math.min(P.length, amount);
+    // fundo com um brilho que respira no alto
+    const g = ctx.createRadialGradient(W * 0.5, -40, 10, W * 0.5, 60, 260);
+    g.addColorStop(0, petal); g.addColorStop(0.35, bg); g.addColorStop(1, "#000");
+    ctx.globalAlpha = 1; ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = petal;
+    for (const p of P) {
+      p.y += p.s * v; p.x += Math.sin(t * 2 + p.a) * 0.6 * v; p.a += 0.02 * v;
+      if (p.y > H + 10) spawn(p, true);
+      ctx.globalAlpha = 0.55 + 0.45 * Math.sin(p.a * 2) ** 2;
+      ctx.beginPath(); ctx.ellipse(p.x, p.y, p.r, p.r * 0.55, p.a, 0, 6.28); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

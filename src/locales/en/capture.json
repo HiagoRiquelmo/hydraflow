@@ -1,0 +1,10 @@
+{
+  "noDxgi": "DXGI unavailable",
+  "noMonitor": "Primary monitor not found",
+  "noD3d": "Direct3D 11 unavailable ({code})",
+  "noDuplication": "Screen duplication not supported",
+  "duplicateFailed": "Couldn't duplicate the screen ({code})",
+  "mipsFailed": "Failed to set up downscaling on the GPU",
+  "textureFailed": "Failed to create texture ({code})",
+  "grabFailed": "Capture failed ({code})"
+}

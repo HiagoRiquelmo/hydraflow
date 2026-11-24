@@ -1,0 +1,27 @@
+﻿TERMOS DE USO DO HYDRAFLOW
+
+Leia com atenção antes de instalar. Ao clicar em "Eu Concordo", você aceita estes termos.
+
+1. O QUE É
+O Hydraflow é um aplicativo gratuito para controlar a iluminação RGB do seu computador (placa-mãe, teclado, memórias e outros dispositivos compatíveis).
+
+2. USO PERMITIDO
+Você pode instalar e usar o Hydraflow em quantos computadores quiser, para uso pessoal. Não é permitido vendê-lo nem distribuí-lo como se fosse seu.
+
+3. SEM GARANTIA
+O Hydraflow é oferecido "como está", sem garantia de qualquer tipo. Ele conversa diretamente com o hardware do seu computador. O autor não se responsabiliza por danos, perda de dados, mau funcionamento de dispositivos ou qualquer outro problema decorrente do uso do aplicativo. Use por sua conta e risco.
+
+4. MEMÓRIA RAM (OPCIONAL)
+Para controlar o RGB das memórias, o Hydraflow pode baixar e instalar, só se você pedir, o driver oficial PawnIO (assinado pela Microsoft) e os módulos SMBus oficiais. Essa etapa pede permissão de administrador. Se você não ativar esse recurso, nada disso é instalado.
+
+5. OUTROS PROGRAMAS DE RGB
+Feche outros programas de iluminação (SignalRGB, iCUE, Armoury Crate, OpenRGB) enquanto usa o Hydraflow. Dois programas controlando o mesmo dispositivo causam piscadas e cores erradas.
+
+6. PRIVACIDADE
+O Hydraflow não coleta nem envia dados pessoais. Ele só acessa a internet para baixar efeitos de catálogos que você escolher e, se você pedir, os drivers da memória RAM.
+
+7. SOFTWARE DE TERCEIROS
+O Hydraflow usa componentes de código aberto, cada um com sua própria licença: Electron (MIT), node-hid (MIT/X11), koffi (MIT). Os protocolos de dispositivos foram implementados a partir de documentação pública (SDK aberto da Wooting, protocolo SDK do OpenRGB). O driver PawnIO (GPL-2.0) e os módulos SMBus (LGPL-2.1) são baixados das versões oficiais e não fazem parte deste instalador.
+
+8. DESINSTALAR
+Você pode remover o Hydraflow a qualquer momento em Configurações do Windows > Aplicativos.

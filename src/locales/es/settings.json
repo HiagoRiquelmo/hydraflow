@@ -1,0 +1,22 @@
+{
+  "title": "Ajustes",
+  "app": "Aplicación",
+  "language": "Idioma",
+  "languageHint": "Cambia toda la aplicación al instante, incluido el menú de la bandeja.",
+  "startWithWindows": "Iniciar con Windows (minimizado en la bandeja)",
+  "closeToTray": "Cerrar la ventana mantiene el RGB funcionando en la bandeja",
+  "addFolder": "+ Carpeta",
+  "advanced": "Avanzado",
+  "gpu": "Aceleración por GPU",
+  "gpuHint": "Desactivada = más ligera (no usa la tarjeta gráfica). Actívala solo si algún efecto 3D no aparece. Se aplica al volver a abrir la aplicación.",
+  "gpuRestart": "Sal desde el icono de la bandeja y abre Hydraflow de nuevo para aplicarlo",
+  "userFolder": "Carpeta del usuario: {path}",
+  "pluginFolders": "Carpetas extra de plugins",
+  "pluginFoldersHint": "Plugins .js propios (API device.*). Los plugins incluidos ya cubren ASUS Aura y Wooting.",
+  "componentFolders": "Carpetas de componentes",
+  "componentFoldersHint": "Archivos .json de ventiladores/tiras.",
+  "effectFolders": "Carpetas de efectos",
+  "effectFoldersHint": "Archivos .html de efectos.",
+  "virtual": "Dispositivos virtuales",
+  "virtualHint": "Teclado y controladora simulados, para pruebas."
+}

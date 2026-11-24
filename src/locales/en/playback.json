@@ -1,0 +1,7 @@
+{
+  "notFound": "Effect not found",
+  "readFailed": "Couldn't read the effect",
+  "emptyPlaylist": "Empty playlist",
+  "frameTitle": "effect",
+  "playingPlaylist": "Playing playlist \"{name}\""
+}

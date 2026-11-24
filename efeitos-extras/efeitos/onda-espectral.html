@@ -1,0 +1,37 @@
+<head>
+  <title>Onda Espectral</title>
+  <meta description="Todas as cores do espectro deslizando em ondas pelo canvas." />
+  <meta publisher="Hydraflow" />
+  <meta property="speed" label="Velocidade" type="number" min="0" max="100" default="35" />
+  <meta property="direction" label="Direção" type="combobox" values="Horizontal,Vertical,Diagonal,Radial" default="Horizontal" />
+  <meta property="spread" label="Largura do espectro" type="number" min="10" max="100" default="60" />
+  <meta property="saturation" label="Saturação" type="number" min="0" max="100" default="100" />
+</head>
+<body style="margin:0;background:#000">
+  <canvas id="exCanvas" width="320" height="200"></canvas>
+</body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  let offset = 0;
+  function frame() {
+    offset = (offset + speed / 12) % 360;
+    const span = 3.6 / (spread / 100);
+    if (direction === "Radial") {
+      for (let r = 190; r > 0; r -= 4) {
+        ctx.fillStyle = `hsl(${(r * span * 0.6 - offset + 3600) % 360}, ${saturation}%, 50%)`;
+        ctx.beginPath(); ctx.arc(160, 100, r, 0, Math.PI * 2); ctx.fill();
+      }
+    } else if (direction === "Vertical") {
+      for (let y = 0; y < 200; y += 2) { ctx.fillStyle = `hsl(${(y * span - offset + 3600) % 360}, ${saturation}%, 50%)`; ctx.fillRect(0, y, 320, 2); }
+    } else if (direction === "Diagonal") {
+      for (let d = -200; d < 320; d += 3) {
+        ctx.fillStyle = `hsl(${((d + 200) * span * 0.7 - offset + 3600) % 360}, ${saturation}%, 50%)`;
+        ctx.beginPath(); ctx.moveTo(d, 0); ctx.lineTo(d + 4, 0); ctx.lineTo(d + 204, 200); ctx.lineTo(d + 200, 200); ctx.fill();
+      }
+    } else {
+      for (let x = 0; x < 320; x += 2) { ctx.fillStyle = `hsl(${(x * span - offset + 3600) % 360}, ${saturation}%, 50%)`; ctx.fillRect(x, 0, 2, 200); }
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

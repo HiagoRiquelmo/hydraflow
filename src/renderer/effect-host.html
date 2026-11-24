@@ -1,0 +1,207 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!-- Efeitos rodam isolados: sem rede e sem acesso à janela principal (iframe sandbox de origem opaca). -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval'; style-src 'unsafe-inline'; img-src data: blob:; font-src data:;">
+<script>
+// Código injetado antes do efeito: define parâmetros globais, captura o canvas e repassa console.
+function __fxBoot(cfg) {
+  var parentWin = window.parent;
+  var post = function (m) { try { parentWin.postMessage(m, '*'); } catch (e) {} };
+  var paused = false;
+  var W = cfg.w, H = cfg.h;
+  var params = cfg.params || {};
+  Object.keys(params).forEach(function (k) {
+    try { window[k] = params[k]; } catch (e) {}
+    if (window[k] !== params[k]) post({ __fx: 'console', level: 'warn', msg: 'Parâmetro "' + k + '" usa um nome reservado do navegador e não pode ser definido.' });
+  });
+
+  // ambiente mínimo esperado por efeitos de terceiros
+  window.engine = window.engine || {
+    width: W, height: H,
+    audio: { level: -100, density: 0, width: 0, freq: new Array(200).fill(0) },
+    vision: {}, meters: {}, keyboard: {}
+  };
+
+  ['log', 'info', 'warn', 'error', 'debug'].forEach(function (lvl) {
+    console[lvl] = function () {
+      var msg = Array.prototype.map.call(arguments, function (a) {
+        if (typeof a === 'string') return a;
+        try { return JSON.stringify(a); } catch (e) { return String(a); }
+      }).join(' ');
+      post({ __fx: 'console', level: lvl, msg: msg });
+    };
+  });
+  console.clear = function () { post({ __fx: 'console', level: 'clear', msg: '' }); };
+  window.addEventListener('error', function (e) { post({ __fx: 'console', level: 'error', msg: (e.message || 'Erro') + (e.lineno ? ' (linha ' + e.lineno + ')' : '') }); });
+
+  // canvas 2D do efeito fica na memória comum (CPU): evita leitura da GPU a cada quadro capturado
+  var origGetContext = HTMLCanvasElement.prototype.getContext;
+  HTMLCanvasElement.prototype.getContext = function (type, opts) {
+    if (type !== '2d') return origGetContext.call(this, type, opts);
+    var ctx = origGetContext.call(this, type, Object.assign({ willReadFrequently: true }, opts || {}));
+    if (ctx) this.__fx2d = ctx; // leitura direta na captura, sem copiar para outro canvas
+    return ctx;
+  };
+
+  // relógio virtual: a velocidade escala o tempo visto pelo efeito (performance.now, Date.now, timers)
+  var realNow = performance.now.bind(performance);
+  var realDateNow = Date.now;
+  var realSetTimeout = window.setTimeout.bind(window);
+  var realSetInterval = window.setInterval.bind(window);
+  var speed = cfg.speed > 0 ? cfg.speed : 1;
+  var vBase = realNow(), rBase = vBase;
+  function clockRate() { return paused ? 0 : speed; }
+  function vnow() { return vBase + (realNow() - rBase) * clockRate(); }
+  function rebase(fn) { vBase = vnow(); rBase = realNow(); fn(); }
+  var dateOffset = realDateNow() - vnow();
+  try { performance.now = vnow; } catch (e) {}
+  Date.now = function () { return Math.round(dateOffset + vnow()); };
+  // timers do efeito rodam na nossa fila, disparada a cada tique: o efeito ativo fica num iframe fora da tela (o
+  // Chromium não pinta nada dele) e lá os timers do navegador seriam segurados em 1 por segundo; o tique vem da janela.
+  var timers = [], timerSeq = 1;
+  function addTimer(fn, ms, args, every) {
+    var id = timerSeq++;
+    timers.push({ id: id, fn: fn, args: args, at: realNow() + ms, every: every });
+    return id;
+  }
+  window.setTimeout = function (fn, ms) { return addTimer(fn, (Number(ms) || 0) / speed, Array.prototype.slice.call(arguments, 2), 0); };
+  window.setInterval = function (fn, ms) { var every = Math.max(4, (Number(ms) || 0) / speed); return addTimer(fn, every, Array.prototype.slice.call(arguments, 2), every); };
+  window.clearTimeout = window.clearInterval = function (id) { timers = timers.filter(function (t) { return t.id !== id; }); };
+  function runTimers(now) {
+    if (!timers.length) return;
+    var due = timers.filter(function (t) { return t.at <= now; });
+    for (var i = 0; i < due.length; i++) {
+      var t = due[i];
+      if (t.every) t.at = Math.max(t.at + t.every, now - t.every); // atrasou muito: não dispara em rajada
+      else timers = timers.filter(function (x) { return x !== t; });
+      try { if (typeof t.fn === 'function') t.fn.apply(window, t.args); else (0, eval)(String(t.fn)); }
+      catch (e) { post({ __fx: 'console', level: 'error', msg: String(e && e.stack || e) }); }
+    }
+  }
+
+  // requestAnimationFrame com relógio próprio: continua rodando com a janela minimizada.
+  // Efeitos que avançam "por quadro" também respeitam a velocidade: chamamos os callbacks mais ou menos vezes.
+  var queue = [];
+  var nextId = 1;
+  window.requestAnimationFrame = function (cb) { queue.push({ id: nextId, cb: cb }); return nextId++; };
+  window.cancelAnimationFrame = function (id) { queue = queue.filter(function (q) { return q.id !== id; }); };
+
+  var cap = null, capCtx = null, lastCap = 0;
+  // o que a janela quer receber: quadros inteiros (prévia na tela) e/ou só os pixels sob os LEDs (gather: { v, idx })
+  var wantFull = !!cfg.full, gather = null, dirty = true, lastSent = null;
+  // último quadro inteiro mandado: efeito parado (Cor Sólida, pausado) não manda 256 KB iguais 30 vezes por segundo
+  var lastFull = null;
+  function sameAsLastFull(data) {
+    var a = new Uint32Array(data.buffer, data.byteOffset, data.length >> 2);
+    if (lastFull && lastFull.length === a.length) {
+      for (var i = 0; i < a.length; i++) if (a[i] !== lastFull[i]) { lastFull.set(a); return false; }
+      return true;
+    }
+    lastFull = new Uint32Array(a);
+    return false;
+  }
+  var frameMs = 1000 / (cfg.fps || 60);
+  var captureMs = 1000 / (cfg.captureFps || 30);
+  var acc = 0, lastTick = realNow();
+  function canvasEl() { return document.getElementById('exCanvas') || document.querySelector('canvas'); }
+
+  function runQueue() {
+    var t = vnow();
+    var run = queue; queue = [];
+    for (var i = 0; i < run.length; i++) {
+      try { run[i].cb(t); } catch (e) { post({ __fx: 'console', level: 'error', msg: String(e && e.stack || e) }); }
+    }
+  }
+
+  // quem marca o ritmo: a janela (mensagem 'tick', para o efeito ativo fora da tela) ou o próprio timer (prévias visíveis)
+  var driven = false;
+  function tick() {
+    var now = realNow();
+    if (!paused) runTimers(now);
+    if (!paused) {
+      acc += Math.min(4, (now - lastTick) / frameMs) * speed;
+      var n = Math.min(4, Math.floor(acc));
+      acc -= n;
+      if (acc > 4) acc = 0;
+      for (var k = 0; k < n; k++) runQueue();
+    }
+    lastTick = now;
+    // ninguém lendo, ou pausado sem nada novo desde a última captura: não fotografa
+    var wanted = wantFull || (gather && gather.idx.length); // tabela vazia = nenhum LED para ler
+    if (wanted && (!paused || dirty) && now - lastCap >= captureMs - 4) { // tolerância para a imprecisão dos timers do Windows
+      lastCap = now;
+      var data = capture();
+      if (data) {
+        dirty = false;
+        if (gather) {
+          var idx = gather.idx, out = new Uint8Array(idx.length * 3), same = lastSent && lastSent.v === gather.v;
+          for (var i = 0, o = 0; i < idx.length; i++, o += 3) {
+            var p = idx[i];
+            if (p >= 0) { out[o] = data[p]; out[o + 1] = data[p + 1]; out[o + 2] = data[p + 2]; }
+            if (same && (out[o] !== lastSent.d[o] || out[o + 1] !== lastSent.d[o + 1] || out[o + 2] !== lastSent.d[o + 2])) same = false;
+          }
+          // cores iguais às últimas (efeito parado ou cor sólida): nada a mandar, a janela continua com as anteriores
+          if (!same) {
+            lastSent = { v: gather.v, d: out.slice() };
+            parentWin.postMessage({ __fx: 'samples', v: gather.v, data: out.buffer }, '*', [out.buffer]);
+          }
+        }
+        if (wantFull && !sameAsLastFull(data)) parentWin.postMessage({ __fx: 'frame', w: W, h: H, data: data.buffer }, '*', [data.buffer]);
+      }
+    }
+    if (!driven) realSetTimeout(tick, Math.max(1, frameMs - (realNow() - now)));
+  }
+
+  /** Pixels RGBA do canvas do efeito em W×H (ou null se ainda não há canvas). */
+  function capture() {
+    var c = canvasEl();
+    if (!c || !c.width || !c.height) return null;
+    try {
+      if (c.__fx2d && c.width === W && c.height === H) return c.__fx2d.getImageData(0, 0, W, H).data;
+      if (!cap) { cap = document.createElement('canvas'); cap.width = W; cap.height = H; capCtx = origGetContext.call(cap, '2d', { willReadFrequently: true }); }
+      capCtx.clearRect(0, 0, W, H);
+      capCtx.drawImage(c, 0, 0, W, H);
+      return capCtx.getImageData(0, 0, W, H).data;
+    } catch (e) { return null; }
+  }
+
+  window.addEventListener('message', function (e) {
+    var d = e.data || {};
+    if (d.__fx === 'tick') { driven = true; tick(); return; }
+    dirty = true;
+    if (d.__fx === 'param') {
+      window[d.name] = d.value;
+      var cb = window['on' + d.name + 'Changed'];
+      if (typeof cb === 'function') { try { cb(); } catch (err) { console.error(String(err)); } }
+    } else if (d.__fx === 'gather') {
+      gather = d.gather;
+    } else if (d.__fx === 'full') {
+      wantFull = !!d.on;
+      lastFull = null; // quem acabou de pedir (prévia, miniatura) recebe o quadro atual na hora
+    } else if (d.__fx === 'pause') {
+      rebase(function () { paused = !!d.paused; });
+    } else if (d.__fx === 'speed') {
+      var s = Number(d.value);
+      if (s > 0) rebase(function () { speed = Math.max(0.05, Math.min(5, s)); });
+    }
+  });
+  rebase(function () { paused = !!cfg.paused; });
+  realSetTimeout(tick, 0);
+}
+
+window.addEventListener('message', function (e) {
+  var d = e.data || {};
+  if (d.__fx !== 'load') return;
+  var boot = '<scr' + 'ipt>(' + __fxBoot.toString() + ')(' + JSON.stringify(d.cfg).replace(/</g, '\\u003c') + ');</scr' + 'ipt>';
+  document.open();
+  document.write('<!doctype html><html><head><meta charset="utf-8"><style>html,body{overflow:hidden!important;margin:0}canvas{display:block}::-webkit-scrollbar{display:none}</style>' + boot + '</head>' + d.html + '</html>');
+  document.close();
+}, { once: true });
+
+window.parent.postMessage({ __fx: 'ready' }, '*');
+</script>
+</head>
+<body style="margin:0;background:#000"></body>
+</html>

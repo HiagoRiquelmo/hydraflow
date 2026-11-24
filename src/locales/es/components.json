@@ -1,0 +1,9 @@
+{
+  "ring": "Anillo genérico - {n} LEDs",
+  "doubleRing": "Ventilador de anillo doble - {n} LEDs",
+  "strip": "Tira genérica - {n} LEDs",
+  "customStrip": "Tira personalizada - {n} LEDs",
+  "defaultStrip": "Tira predeterminada - {n}",
+  "generic": "Genérico",
+  "defaultReplaced": "Tira predeterminada (marcador) sustituida por el componente elegido"
+}

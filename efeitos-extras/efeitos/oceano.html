@@ -1,0 +1,33 @@
+<head>
+  <title>Oceano</title>
+  <meta description="Ondas profundas em azuis e turquesas, calmas e relaxantes." />
+  <meta publisher="Hydraflow" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="25" />
+  <meta property="deep" label="Água profunda" type="color" default="#001a4d" />
+  <meta property="shallow" label="Água rasa" type="color" default="#00d5c8" />
+  <meta property="foam" label="Espuma" type="boolean" default="1" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  let t = 0;
+  function frame() {
+    t += speed / 2000;
+    const bg = ctx.createLinearGradient(0, 0, 0, 200);
+    bg.addColorStop(0, shallow); bg.addColorStop(1, deep);
+    ctx.globalAlpha = 1; ctx.fillStyle = bg; ctx.fillRect(0, 0, 320, 200);
+    for (let k = 0; k < 4; k++) {
+      ctx.globalAlpha = 0.25;
+      ctx.fillStyle = k % 2 ? deep : shallow;
+      ctx.beginPath(); ctx.moveTo(0, 200);
+      for (let x = 0; x <= 320; x += 8) ctx.lineTo(x, 50 + k * 40 + Math.sin(x / (30 + k * 8) + t * (1 + k * 0.3)) * 14);
+      ctx.lineTo(320, 200); ctx.fill();
+    }
+    if (foam) {
+      ctx.globalAlpha = 0.6; ctx.fillStyle = "#e8ffff";
+      for (let x = 0; x < 320; x += 6) { const y = 50 + Math.sin(x / 30 + t) * 14; if (Math.sin(x * 0.7 + t * 5) > 0.6) ctx.fillRect(x, y - 2, 4, 3); }
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

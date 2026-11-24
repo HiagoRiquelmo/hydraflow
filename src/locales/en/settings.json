@@ -1,0 +1,22 @@
+{
+  "title": "Settings",
+  "app": "App",
+  "language": "Language",
+  "languageHint": "Changes the whole app right away, including the tray menu.",
+  "startWithWindows": "Start with Windows (minimized to the tray)",
+  "closeToTray": "Closing the window keeps the RGB running in the tray",
+  "addFolder": "+ Folder",
+  "advanced": "Advanced",
+  "gpu": "GPU acceleration",
+  "gpuHint": "Off = lighter (doesn't use the graphics card). Turn it on only if a 3D effect doesn't show up. Applies after reopening the app.",
+  "gpuRestart": "Quit from the tray icon and open Hydraflow again to apply",
+  "userFolder": "User folder: {path}",
+  "pluginFolders": "Extra plugin folders",
+  "pluginFoldersHint": "Your own .js plugins (device.* API). The plugins included with the app already cover ASUS Aura and Wooting.",
+  "componentFolders": "Component folders",
+  "componentFoldersHint": ".json files for fans/strips.",
+  "effectFolders": "Effect folders",
+  "effectFoldersHint": ".html effect files.",
+  "virtual": "Virtual devices",
+  "virtualHint": "Simulated keyboard and controller, for testing."
+}

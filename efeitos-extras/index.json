@@ -1,0 +1,554 @@
+{
+  "name": "Hydraflow",
+  "description": "Efeitos que vêm com o app, prontos para baixar com um clique.",
+  "effects": [
+    {
+      "id": "aquarela",
+      "name": "Aquarela",
+      "publisher": "Hydraflow",
+      "category": "Ambiente",
+      "tags": [
+        "suave",
+        "mistura"
+      ],
+      "version": "1.0.1",
+      "updated": "2026-11-24",
+      "file": "efeitos/aquarela.html",
+      "image": "imagens/aquarela.png",
+      "description": "Manchas suaves de tinta se espalham e se misturam devagar, como aquarela em papel molhado."
+    },
+    {
+      "id": "arco-iris-ascendente",
+      "name": "Arco-íris Ascendente",
+      "publisher": "Hydraflow",
+      "category": "Arco-íris",
+      "tags": [
+        "arco-íris",
+        "onda"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/arco-iris-ascendente.html",
+      "image": "imagens/arco-iris-ascendente.png",
+      "description": "Faixas de arco-íris sobem continuamente pelo setup, de baixo para cima."
+    },
+    {
+      "id": "arco-iris-respirando",
+      "name": "Arco-íris Respirando",
+      "publisher": "Hydraflow",
+      "category": "Pulso",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/arco-iris-respirando.html",
+      "image": "imagens/arco-iris-respirando.png",
+      "description": "Todo o setup em uma só cor que percorre o espectro, com respiração suave."
+    },
+    {
+      "id": "aurora",
+      "name": "Aurora",
+      "publisher": "Hydraflow",
+      "category": "Ambiente",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/aurora.html",
+      "image": "imagens/aurora.png",
+      "description": "Cortinas de luz verdes e violetas ondulando como a aurora boreal."
+    },
+    {
+      "id": "batimento",
+      "name": "Batimento",
+      "publisher": "Hydraflow",
+      "category": "Pulso",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/batimento.html",
+      "image": "imagens/batimento.png",
+      "description": "Pulso duplo de luz no ritmo de um coração."
+    },
+    {
+      "id": "bolhas",
+      "name": "Bolhas",
+      "publisher": "Hydraflow",
+      "category": "Festa",
+      "tags": [
+        "bolhas",
+        "colorido"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/bolhas.html",
+      "image": "imagens/bolhas.png",
+      "description": "Bolhas coloridas sobem, crescem e se misturam sobre um fundo escuro."
+    },
+    {
+      "id": "caldeirao",
+      "name": "Caldeirão",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [
+        "verde",
+        "bolhas"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/caldeirao.html",
+      "image": "imagens/caldeirao.png",
+      "description": "Poção borbulhando: líquido verde que ondula na base e bolhas que sobem e estouram."
+    },
+    {
+      "id": "caleidoscopio",
+      "name": "Caleidoscópio",
+      "publisher": "Hydraflow",
+      "category": "Arco-íris",
+      "tags": [
+        "espelho",
+        "giro"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/caleidoscopio.html",
+      "image": "imagens/caleidoscopio.png",
+      "description": "Formas coloridas espelhadas em volta do centro, girando e mudando de cor sem parar."
+    },
+    {
+      "id": "cerejeira",
+      "name": "Cerejeira",
+      "publisher": "Hydraflow",
+      "category": "Ambiente",
+      "tags": [
+        "flores",
+        "rosa",
+        "calmo"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/cerejeira.html",
+      "image": "imagens/cerejeira.png",
+      "description": "Pétalas cor-de-rosa caindo devagar sobre um fundo vinho escuro, como uma cerejeira à noite."
+    },
+    {
+      "id": "estrelas",
+      "name": "Céu Estrelado",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/estrelas.html",
+      "image": "imagens/estrelas.png",
+      "description": "Pontos de luz que surgem e desaparecem sobre um fundo escuro."
+    },
+    {
+      "id": "chama-neon",
+      "name": "Chama Neon",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [
+        "fogo",
+        "neon"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/chama-neon.html",
+      "image": "imagens/chama-neon.png",
+      "description": "Labaredas em cores neon sobem da base do setup, com brilho intenso e movimento de fogo."
+    },
+    {
+      "id": "chamas",
+      "name": "Chamas",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/chamas.html",
+      "image": "imagens/chamas.png",
+      "description": "Fogo subindo da base do canvas, com intensidade ajustável."
+    },
+    {
+      "id": "chuva-digital",
+      "name": "Chuva Digital",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/chuva-digital.html",
+      "image": "imagens/chuva-digital.png",
+      "description": "Colunas de luz caindo com rastro, em estilo terminal retrô."
+    },
+    {
+      "id": "cometa",
+      "name": "Cometa",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/cometa.html",
+      "image": "imagens/cometa.png",
+      "description": "Um cometa brilhante cruza o setup deixando uma cauda de cor."
+    },
+    {
+      "id": "correnteza",
+      "name": "Correnteza",
+      "publisher": "Hydraflow",
+      "category": "Ambiente",
+      "tags": [
+        "água",
+        "azul"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/correnteza.html",
+      "image": "imagens/correnteza.png",
+      "description": "Correntes de água em camadas se cruzam com espuma brilhante, como o mar puxando para dentro."
+    },
+    {
+      "id": "empilhar",
+      "name": "Empilhar",
+      "publisher": "Hydraflow",
+      "category": "Festa",
+      "tags": [
+        "blocos",
+        "jogo"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/empilhar.html",
+      "image": "imagens/empilhar.png",
+      "description": "Blocos de cor caem e se empilham até encher o setup; quando enche, tudo se apaga e começa de novo."
+    },
+    {
+      "id": "enxame",
+      "name": "Enxame",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [
+        "partículas",
+        "movimento"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/enxame.html",
+      "image": "imagens/enxame.png",
+      "description": "Dezenas de pontos de luz voam juntos como um enxame, seguindo um líder que passeia pelo setup."
+    },
+    {
+      "id": "espiral",
+      "name": "Espiral",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/espiral.html",
+      "image": "imagens/espiral.png",
+      "description": "Uma espiral colorida girando a partir do centro do canvas."
+    },
+    {
+      "id": "faiscas",
+      "name": "Faíscas",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/faiscas.html",
+      "image": "imagens/faiscas.png",
+      "description": "Faíscas sobem e se apagam sobre uma cor de fundo suave."
+    },
+    {
+      "id": "fantasmas",
+      "name": "Fantasmas",
+      "publisher": "Hydraflow",
+      "category": "Ambiente",
+      "tags": [
+        "suave",
+        "cores"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/fantasmas.html",
+      "image": "imagens/fantasmas.png",
+      "description": "Manchas de luz translúcidas vagam pelo setup, aparecendo e sumindo enquanto trocam de cor."
+    },
+    {
+      "id": "fogos-de-artificio",
+      "name": "Fogos de Artifício",
+      "publisher": "Hydraflow",
+      "category": "Festa",
+      "tags": [
+        "explosão",
+        "partículas"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/fogos-de-artificio.html",
+      "image": "imagens/fogos-de-artificio.png",
+      "description": "Foguetes sobem e explodem em chuvas de faíscas coloridas que caem devagar."
+    },
+    {
+      "id": "gradiente",
+      "name": "Gradiente Duplo",
+      "publisher": "Hydraflow",
+      "category": "Básicos",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/gradiente.html",
+      "image": "imagens/gradiente.png",
+      "description": "Transição suave entre duas cores, opcionalmente em movimento."
+    },
+    {
+      "id": "hiperespaco",
+      "name": "Hiperespaço",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [
+        "espaço",
+        "estrelas"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/hiperespaco.html",
+      "image": "imagens/hiperespaco.png",
+      "description": "Estrelas se esticam a partir do centro, como um salto para a velocidade da luz."
+    },
+    {
+      "id": "lampada-de-lava",
+      "name": "Lâmpada de Lava",
+      "publisher": "Hydraflow",
+      "category": "Ambiente",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/lampada-de-lava.html",
+      "image": "imagens/lampada-de-lava.png",
+      "description": "Bolhas quentes que sobem, se unem e descem lentamente."
+    },
+    {
+      "id": "lua-de-sangue",
+      "name": "Lua de Sangue",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [
+        "vermelho",
+        "partículas"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/lua-de-sangue.html",
+      "image": "imagens/lua-de-sangue.png",
+      "description": "Um enxame de faíscas vermelhas gira em volta de uma lua carmesim que pulsa devagar."
+    },
+    {
+      "id": "nebulosa",
+      "name": "Nebulosa",
+      "publisher": "Hydraflow",
+      "category": "Ambiente",
+      "tags": [
+        "espaço",
+        "calmo"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/nebulosa.html",
+      "image": "imagens/nebulosa.png",
+      "description": "Nuvens de gás luminoso que se misturam e pulsam devagar entre duas cores, como uma nebulosa no espaço."
+    },
+    {
+      "id": "neon-deslizante",
+      "name": "Neon Deslizante",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [
+        "neon",
+        "faixas",
+        "arco-íris"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/neon-deslizante.html",
+      "image": "imagens/neon-deslizante.png",
+      "description": "Faixas de neon atravessam o setup em sequência, cada uma num tom do arco-íris."
+    },
+    {
+      "id": "oceano",
+      "name": "Oceano",
+      "publisher": "Hydraflow",
+      "category": "Ambiente",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/oceano.html",
+      "image": "imagens/oceano.png",
+      "description": "Ondas profundas em azuis e turquesas, calmas e relaxantes."
+    },
+    {
+      "id": "onda-espectral",
+      "name": "Onda Espectral",
+      "publisher": "Hydraflow",
+      "category": "Básicos",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/onda-espectral.html",
+      "image": "imagens/onda-espectral.png",
+      "description": "Todas as cores do espectro deslizando em ondas pelo canvas."
+    },
+    {
+      "id": "ondulacao",
+      "name": "Ondulação",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/ondulacao.html",
+      "image": "imagens/ondulacao.png",
+      "description": "Anéis de cor se espalham a partir de pontos aleatórios, como gotas na água."
+    },
+    {
+      "id": "plasma",
+      "name": "Plasma",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/plasma.html",
+      "image": "imagens/plasma.png",
+      "description": "Campos de cor orgânicos que se misturam continuamente."
+    },
+    {
+      "id": "por-do-sol",
+      "name": "Pôr do Sol",
+      "publisher": "Hydraflow",
+      "category": "Ambiente",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/por-do-sol.html",
+      "image": "imagens/por-do-sol.png",
+      "description": "Gradiente quente que respira lentamente entre laranja, rosa e roxo."
+    },
+    {
+      "id": "respingos",
+      "name": "Respingos",
+      "publisher": "Hydraflow",
+      "category": "Festa",
+      "tags": [
+        "tinta",
+        "colorido"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/respingos.html",
+      "image": "imagens/respingos.png",
+      "description": "Respingos de tinta colorida aparecem pelo setup com gotinhas em volta e vão desbotando aos poucos."
+    },
+    {
+      "id": "roda-de-cor",
+      "name": "Roda de Cor",
+      "publisher": "Hydraflow",
+      "category": "Arco-íris",
+      "tags": [
+        "arco-íris",
+        "giro"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/roda-de-cor.html",
+      "image": "imagens/roda-de-cor.png",
+      "description": "Uma roda com todas as cores gira a partir do centro do setup, suave ou em fatias."
+    },
+    {
+      "id": "sirene",
+      "name": "Sirene",
+      "publisher": "Hydraflow",
+      "category": "Pulso",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/sirene.html",
+      "image": "imagens/sirene.png",
+      "description": "Alternância entre duas cores em lados opostos, com flashes rápidos."
+    },
+    {
+      "id": "sonar",
+      "name": "Sonar",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [
+        "radar",
+        "giro"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/sonar.html",
+      "image": "imagens/sonar.png",
+      "description": "Um feixe de radar gira a partir do centro deixando um rastro que se apaga, revelando pontos pelo caminho."
+    },
+    {
+      "id": "sonho-neon",
+      "name": "Sonho Neon",
+      "publisher": "Hydraflow",
+      "category": "Retrô",
+      "tags": [
+        "neon",
+        "degradê"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/sonho-neon.html",
+      "image": "imagens/sonho-neon.png",
+      "description": "Ondas suaves de rosa e ciano que se misturam e deslizam, num clima de sonho retrô."
+    },
+    {
+      "id": "synthwave",
+      "name": "Synthwave",
+      "publisher": "Hydraflow",
+      "category": "Retrô",
+      "tags": [
+        "anos 80",
+        "neon"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/synthwave.html",
+      "image": "imagens/synthwave.png",
+      "description": "Sol neon listrado no horizonte e uma grade em perspectiva correndo em sua direção, no clima dos anos 80."
+    },
+    {
+      "id": "tempestade",
+      "name": "Tempestade",
+      "publisher": "Hydraflow",
+      "category": "Ambiente",
+      "tags": [
+        "relâmpago",
+        "chuva"
+      ],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/tempestade.html",
+      "image": "imagens/tempestade.png",
+      "description": "Nuvens escuras e chuva, cortadas por relâmpagos que acendem o setup inteiro de repente."
+    },
+    {
+      "id": "varredura",
+      "name": "Varredura",
+      "publisher": "Hydraflow",
+      "category": "Dinâmicos",
+      "tags": [],
+      "version": "1.0.0",
+      "updated": "2026-11-19",
+      "file": "efeitos/varredura.html",
+      "image": "imagens/varredura.png",
+      "description": "Uma barra de luz que percorre o setup de um lado ao outro."
+    }
+  ]
+}

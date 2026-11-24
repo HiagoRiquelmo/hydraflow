@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hydraflow — iluminação RGB open source para Windows</title>
+<meta name="description" content="Hydraflow: controle de iluminação RGB open source para Windows. Efeitos animados, LEDs que copiam a tela e seguem a música, papel de parede animado e tela do watercooler. Leve, sem nuvem, sem conta." />
+<meta property="og:title" content="Hydraflow — iluminação RGB open source para Windows" />
+<meta property="og:description" content="Efeitos animados, LEDs que seguem a tela e a música, papel de parede animado e tela do watercooler. Leve, sem nuvem, sem conta." />
+<meta property="og:image" content="img/iluminacao.png" />
+<meta property="og:type" content="website" />
+<link rel="icon" href="img/icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --canvas:#3EE8A6;
+    --canvas-deep:#22C98B;
+    --ink:#04120C;
+    --card:#080C0A;
+    --card-2:#0E1411;
+    --text:#F3F7F5;
+    --text-2:#A7B5AE;
+    --text-3:#6E7D76;
+    --accent:#B69CFF;
+    --mint:#3EE8A6;
+    --line:#ffffff14;
+    --line-2:#ffffff2b;
+    --ink-line:#04120C2e;
+    --r:20px;
+    --max:1240px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--canvas);
+    color:var(--ink);
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    font-size:16px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--ink);color:var(--mint)}
+
+  .wrap{width:min(var(--max),calc(100% - 48px));margin-inline:auto}
+  .micro{
+    font-size:10.5px;text-transform:uppercase;letter-spacing:.26em;font-weight:600;
+  }
+  .rule{display:inline-block;height:1px;width:64px;background:currentColor;opacity:.45;vertical-align:middle;margin-left:14px}
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:color-mix(in srgb, var(--canvas) 82%, transparent);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--ink-line);
+  }
+  .nav{display:flex;align-items:center;gap:28px;height:72px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:700;letter-spacing:.16em;font-size:13px}
+  .brand img{width:30px;height:30px;border-radius:9px}
+  .nav-links{display:flex;gap:26px;margin-left:auto}
+  .nav-links a{font-size:10.5px;text-transform:uppercase;letter-spacing:.22em;font-weight:600;opacity:.72;transition:opacity .2s}
+  .nav-links a:hover{opacity:1}
+  .nav-cta{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--ink);color:var(--text);
+    padding:12px 20px;border-radius:999px;
+    font-size:10.5px;text-transform:uppercase;letter-spacing:.22em;font-weight:600;
+    transition:transform .2s, background .2s;
+  }
+  .nav-cta:hover{transform:translateY(-1px);background:#0b241a}
+
+  /* ---------- hero ---------- */
+  .hero{padding:64px 0 34px;position:relative}
+  .hero::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(60% 70% at 82% 8%, #ffffff8c 0%, transparent 62%);
+    mix-blend-mode:soft-light;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center}
+  .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--ink)}
+  h1{
+    font-family:Anton,Impact,sans-serif;
+    font-size:clamp(52px,7.4vw,104px);
+    line-height:.9;letter-spacing:-.015em;text-transform:uppercase;
+    margin-bottom:24px;
+  }
+  h1 .hollow{color:transparent;-webkit-text-stroke:2px var(--ink)}
+  h1 .fill{color:var(--ink)}
+  h1 .mark{color:var(--ink);position:relative;display:inline-block}
+  h1 .mark::after{
+    content:"";position:absolute;left:2px;right:2px;bottom:.06em;height:.11em;
+    background:var(--ink);opacity:.16;border-radius:2px;z-index:-1;
+  }
+  .lead{max-width:46ch;font-size:clamp(15px,1.15vw,17.5px);color:#0a2b1e;font-weight:400}
+  .hero-actions{display:flex;align-items:center;gap:22px;margin-top:34px;flex-wrap:wrap}
+  .pill{
+    display:inline-flex;align-items:center;gap:14px;
+    background:var(--ink);color:var(--text);
+    padding:18px 28px;border-radius:999px;
+    font-size:11px;text-transform:uppercase;letter-spacing:.22em;font-weight:600;
+    transition:transform .22s, box-shadow .22s;
+    box-shadow:0 18px 40px -18px #04120c8c;
+  }
+  .pill:hover{transform:translateY(-2px);box-shadow:0 26px 50px -20px #04120c9c}
+  .pill svg{width:14px;height:14px}
+  .pill.light{background:transparent;color:var(--ink);box-shadow:none;border:1px solid var(--ink-line)}
+  .pill.light:hover{background:#04120c0e;box-shadow:none}
+  .circle{
+    width:56px;height:56px;border-radius:50%;border:1px solid var(--ink-line);
+    display:grid;place-items:center;flex:0 0 auto;transition:background .2s;
+  }
+  .circle:hover{background:#04120c12}
+  .circle svg{width:14px;height:14px}
+  .side-note{display:flex;align-items:center;gap:10px;margin-top:36px;color:#0a2b1e;opacity:.75}
+
+  /* image island */
+  .stage{position:relative}
+  .stage::before{
+    content:"";position:absolute;inset:-8% -12% -14% -8%;
+    background:radial-gradient(50% 50% at 50% 45%, #04120c2e 0%, transparent 70%);
+    filter:blur(28px);z-index:0;
+  }
+  .screen{
+    position:relative;z-index:1;
+    border-radius:22px;overflow:hidden;
+    border:1px solid #04120c33;
+    background:var(--card);
+    box-shadow:0 40px 80px -40px #04120ccc, 0 2px 0 #ffffff40 inset;
+    transform:rotate(-1.2deg);
+  }
+  .screen img{width:100%}
+  .badge{
+    position:absolute;z-index:2;bottom:-18px;left:-16px;
+    background:var(--ink);color:var(--text);
+    border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:12px;
+    box-shadow:0 20px 40px -22px #000000cc;
+  }
+  .badge b{font-family:Anton,sans-serif;font-size:26px;line-height:1;letter-spacing:.01em}
+  .badge span{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-2);display:block;margin-top:3px}
+
+  /* ---------- stats ---------- */
+  .stats{
+    margin-top:74px;border-top:1px solid var(--ink-line);border-bottom:1px solid var(--ink-line);
+    display:grid;grid-template-columns:repeat(4,1fr);
+  }
+  .stat{padding:26px 26px 26px 0;border-right:1px solid var(--ink-line)}
+  .stat:last-child{border-right:0}
+  .stat b{font-family:Anton,sans-serif;font-size:clamp(30px,3.2vw,44px);line-height:1;display:block;letter-spacing:.005em}
+  .stat span{display:block;margin-top:8px}
+
+  /* ---------- sections ---------- */
+  section{padding:96px 0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:40px;margin-bottom:44px;flex-wrap:wrap}
+  h2{
+    font-family:Anton,Impact,sans-serif;text-transform:uppercase;
+    font-size:clamp(38px,5vw,68px);line-height:.92;letter-spacing:-.01em;
+  }
+  .sec-head p{max-width:44ch;color:#0a2b1e;font-size:15px}
+
+  /* feature cards */
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .card{
+    background:var(--card);color:var(--text);border-radius:var(--r);
+    padding:26px 24px 22px;display:flex;flex-direction:column;gap:14px;
+    border:1px solid #000000;min-height:270px;
+    transition:transform .25s, background .25s;
+  }
+  .card:hover{transform:translateY(-4px);background:var(--card-2)}
+  .card .num{font-size:10px;letter-spacing:.24em;color:var(--text-3);font-weight:600}
+  .card .ico{width:42px;height:42px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;margin-top:4px}
+  .card .ico svg{width:18px;height:18px;stroke:var(--mint)}
+  .card h3{font-size:16.5px;font-weight:600;line-height:1.25;margin-top:auto}
+  .card p{font-size:13px;color:var(--text-2);line-height:1.5}
+  .card .go{margin-top:10px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line-2);display:grid;place-items:center;transition:background .2s}
+  .card:hover .go{background:var(--accent);border-color:var(--accent)}
+  .card .go svg{width:13px;height:13px;stroke:currentColor}
+  .card:hover .go svg{stroke:#1a0e33}
+
+  /* spotlight */
+  .spot{
+    background:var(--card);color:var(--text);border-radius:26px;
+    display:grid;grid-template-columns:1.05fr .95fr;overflow:hidden;
+    border:1px solid #000;
+  }
+  .spot .copy{padding:56px 48px;display:flex;flex-direction:column;justify-content:center;gap:20px}
+  .spot h3{font-family:Anton,sans-serif;text-transform:uppercase;font-size:clamp(30px,3.4vw,46px);line-height:.95}
+  .spot p{color:var(--text-2);font-size:14.5px;max-width:40ch}
+  .kpis{display:flex;gap:34px;margin-top:12px;flex-wrap:wrap}
+  .kpi b{font-family:Anton,sans-serif;font-size:30px;line-height:1;display:block;color:var(--mint)}
+  .kpi span{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-3);display:block;margin-top:6px}
+  .spot .shot{position:relative;display:flex;align-items:center;padding:28px 28px 28px 0}
+  .spot .shot img{border-radius:14px;border:1px solid var(--line);width:100%}
+  .tag{display:inline-flex;align-items:center;gap:8px;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);border:1px solid #B69CFF4d;border-radius:999px;padding:7px 14px;width:max-content}
+
+  /* hardware */
+  .hw{background:var(--card);color:var(--text);border-radius:26px;padding:44px;border:1px solid #000}
+  .hw-top{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;margin-bottom:30px;flex-wrap:wrap}
+  .hw h3{font-family:Anton,sans-serif;text-transform:uppercase;font-size:clamp(26px,3vw,38px);line-height:.95}
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{border:1px solid var(--line-2);border-radius:999px;padding:10px 16px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2)}
+  .chip.hot{background:var(--mint);color:#04120c;border-color:transparent;font-weight:600}
+  .hw-note{margin-top:24px;font-size:12.5px;color:var(--text-3);max-width:70ch;border-top:1px solid var(--line);padding-top:20px}
+
+  /* download */
+  .dl{
+    background:var(--card);color:var(--text);border-radius:28px;border:1px solid #000;
+    padding:56px;display:grid;grid-template-columns:1.25fr .75fr;gap:48px;
+    position:relative;overflow:hidden;
+  }
+  .dl::after{
+    content:"2.0.0";position:absolute;right:-28px;bottom:-58px;
+    font-family:Anton,sans-serif;font-size:clamp(140px,20vw,280px);line-height:1;
+    color:#ffffff08;pointer-events:none;letter-spacing:-.02em;
+  }
+  .dl h2{font-size:clamp(34px,4.2vw,56px)}
+  .dl .sub{color:var(--text-2);margin-top:14px;max-width:44ch}
+  .dl-actions{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;position:relative;z-index:1}
+  .dl .pill{background:var(--mint);color:#04120c;box-shadow:0 18px 40px -20px #3ee8a67a}
+  .dl .pill.ghost{background:transparent;color:var(--text);border:1px solid var(--line-2);box-shadow:none}
+  .dl-side{display:flex;flex-direction:column;gap:18px;justify-content:center;position:relative;z-index:1}
+  .meta{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid var(--line);padding-bottom:12px;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
+  .meta b{color:var(--text);font-weight:500;letter-spacing:.04em;text-transform:none;font-size:12.5px}
+  .warn{font-size:11.5px;color:var(--text-3);line-height:1.55}
+
+  /* partner control */
+  .partner{
+    background:var(--card);color:var(--text);border-radius:26px;border:1px solid #000;
+    display:grid;grid-template-columns:.85fr 1.15fr;overflow:hidden;
+  }
+  .partner .left{padding:48px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:18px}
+  .partner .right{padding:48px;display:flex;flex-direction:column;gap:18px}
+  .partner .credits{
+    background:#0e1411;border:1px solid var(--line);border-radius:16px;padding:20px;
+  }
+  .partner .credits .who{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#C94B4B,#7A1F1F);display:grid;place-items:center;font-weight:700;font-size:12px;color:#fff}
+  .partner h3{font-family:Anton,sans-serif;text-transform:uppercase;font-size:clamp(26px,3vw,40px);line-height:.95}
+  .partner p{color:var(--text-2);font-size:13.5px;max-width:46ch}
+  .partner .note{font-size:11.5px;color:var(--text-3)}
+  .links{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  .link-pill{border:1px solid var(--line-2);border-radius:999px;padding:11px 18px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;transition:background .2s,color .2s,border-color .2s}
+  .link-pill:hover{background:var(--text);color:#04120c;border-color:var(--text)}
+  .hash{font-family:ui-monospace,Consolas,monospace;font-size:10.5px;color:var(--text-3);word-break:break-all;line-height:1.6}
+
+  /* footer */
+  footer{background:var(--ink);color:var(--text);padding:64px 0 40px;margin-top:40px}
+  .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px}
+  .foot h4{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;}
+  .foot a{display:block;font-size:13.5px;color:var(--text-2);padding:5px 0;transition:color .2s}
+  .foot a:hover{color:var(--mint)}
+  .foot .mark{font-family:Anton,sans-serif;font-size:30px;text-transform:uppercase;letter-spacing:.02em;color:var(--text);display:flex;align-items:center;gap:12px}
+  .foot .mark img{width:34px;height:34px;border-radius:10px}
+  .foot .about{color:var(--text-3);font-size:13px;max-width:36ch;margin-top:14px}
+  .legal{margin-top:48px;padding-top:22px;border-top:1px solid #ffffff12;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:11px;color:var(--text-3);letter-spacing:.06em}
+
+  /* reveal */
+  @media (prefers-reduced-motion:no-preference){
+    .js .fade{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.6,.2,1),transform .7s cubic-bezier(.2,.6,.2,1)}
+    .js .fade.in{opacity:1;transform:none}
+  }
+
+  @media (max-width:1000px){
+    .hero-grid{grid-template-columns:1fr;gap:44px}
+    .hero{padding-top:40px}
+    .cards{grid-template-columns:repeat(2,1fr)}
+    .spot{grid-template-columns:1fr}
+    .spot .shot{padding:0 24px 28px}
+    .dl{grid-template-columns:1fr;padding:40px 32px}
+    .partner{grid-template-columns:1fr}
+    .partner .left{border-right:0;border-bottom:1px solid var(--line)}
+    .foot{grid-template-columns:1fr 1fr}
+    .nav-links{display:none}
+  }
+  @media (max-width:620px){
+    .wrap{width:calc(100% - 32px)}
+    .stats{grid-template-columns:1fr 1fr}
+    .stat:nth-child(2){border-right:0}
+    .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--ink-line)}
+    .cards{grid-template-columns:1fr}
+    section{padding:64px 0}
+    .hw{padding:28px}
+    .spot .copy{padding:34px 26px}
+    .partner .left,.partner .right{padding:30px 24px}
+    .foot{grid-template-columns:1fr}
+    .brand span{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><img src="img/icon.png" alt=""><span>HYDRAFLOW</span></a>
+    <nav class="nav-links">
+      <a href="#recursos">Recursos</a>
+      <a href="#tela">Ambiente da Tela</a>
+      <a href="#hardware">Hardware</a>
+      <a href="#resetexplode">ResetExplode</a>
+    </nav>
+    <a class="nav-cta" href="#download">Baixar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="eyebrow micro"><span class="dot"></span> RGB open source · Windows 10 e 11 <span class="rule"></span></div>
+          <h1>
+            <span class="hollow">Luz que</span><br>
+            <span class="fill">acompanha</span><br>
+            <span class="mark">você.</span>
+          </h1>
+          <p class="lead">
+            Efeitos animados, LEDs que copiam a tela e seguem a música, papel de parede animado e a tela do
+            watercooler — num app leve, sem nuvem e sem conta.
+          </p>
+          <div class="hero-actions">
+            <a class="pill" href="#download">Baixar instalador <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v12M6 10l6 6 6-6M5 20h14"/></svg></a>
+            <a class="circle" href="#recursos" aria-label="Ver recursos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <span class="micro" style="max-width:9ch;line-height:1.6">Ver o que ele faz</span>
+          </div>
+          <div class="side-note micro"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Grátis e aberto · MIT · <span id="gh-stars">GitHub</span></div>
+        </div>
+
+        <div class="stage">
+          <figure class="screen"><img src="img/iluminacao.png" alt="Tela de Iluminação do Hydraflow" /></figure>
+          <div class="badge">
+            <div>
+              <b>1,4%</b>
+              <span>de um núcleo<br>parado na bandeja</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b>17 ms</b><span class="micro">da tela ao LED</span></div>
+      <div class="stat"><b>40+</b><span class="micro">efeitos inclusos</span></div>
+      <div class="stat"><b>3</b><span class="micro">idiomas na hora</span></div>
+      <div class="stat"><b>0</b><span class="micro">telemetria e conta</span></div>
+    </div>
+  </div>
+
+  <!-- RECURSOS -->
+  <section id="recursos">
+    <div class="wrap">
+      <div class="sec-head fade">
+        <h2>Um app,<br>quatro frentes.</h2>
+        <p>Iluminação, tela, som e hardware — tudo no mesmo lugar, sem plugin de terceiro e sem pendurar processos.</p>
+      </div>
+      <div class="cards">
+        <article class="card fade">
+          <span class="num">01</span>
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5V16h8v-2.5A6 6 0 0 0 12 3z"/></svg></span>
+          <h3>Efeitos que você controla</h3>
+          <p>Cores, velocidade e presets em tempo real. Playlists trocam o efeito sozinhas e o favorito fica a um clique.</p>
+          <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </article>
+        <article class="card fade">
+          <span class="num">02</span>
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span>
+          <h3>LEDs que copiam a tela</h3>
+          <p>Cada LED pega a cor do ponto onde está no layout. Fita atrás do monitor vira ambilight de verdade.</p>
+          <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </article>
+        <article class="card fade">
+          <span class="num">03</span>
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M9 18V6l10-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="16" cy="16" r="3"/></svg></span>
+          <h3>No ritmo da música</h3>
+          <p>O brilho segue o som do PC e as cores acompanham a emoção da faixa — triste, alegre, calmo ou raiva.</p>
+          <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </article>
+        <article class="card fade">
+          <span class="num">04</span>
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 14l4-3 3 3 4-5 4 4"/></svg></span>
+          <h3>Papel de parede vivo</h3>
+          <p>GIF, WebP ou vídeo atrás dos ícones — e a mesma biblioteca alimenta a tela do watercooler.</p>
+          <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPOTLIGHT -->
+  <section id="tela" style="padding-top:0">
+    <div class="wrap">
+      <div class="spot fade">
+        <div class="copy">
+          <span class="tag">Baixa latência</span>
+          <h3>Ambiente da Tela<br>sem pesar no PC.</h3>
+          <p>
+            A captura acontece na placa de vídeo via DXGI Desktop Duplication: só ~120×68 pixels chegam à CPU,
+            e o Windows entrega um quadro apenas quando a tela muda. Com a tela parada, o app não processa nada.
+          </p>
+          <div class="kpis">
+            <div class="kpi"><b>~3%</b><span>de um núcleo</span></div>
+            <div class="kpi"><b>17 ms</b><span>tela → LED</span></div>
+            <div class="kpi"><b>125/s</b><span>quadros lidos</span></div>
+          </div>
+        </div>
+        <div class="shot"><img src="img/ambiente-tela.png" alt="Ambiente da Tela replicando a tela nos LEDs" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESCOBRIR + DISPOSITIVOS -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="cards" style="grid-template-columns:1.15fr .85fr">
+        <article class="card fade" style="min-height:0;padding:0;overflow:hidden">
+          <div style="padding:26px 24px 18px">
+            <span class="num">DESCUBRIR</span>
+            <h3 style="margin-top:10px">Uma loja de efeitos,<br>direto no app.</h3>
+            <p style="margin-top:10px">40 efeitos inclusos, um clique para instalar e atualização quando o autor sobe a versão. Efeito é só um HTML.</p>
+          </div>
+          <img src="img/descobrir.png" alt="Tela Descobrir com efeitos para instalar" style="margin-top:auto" />
+        </article>
+        <article class="card fade" style="min-height:0;padding:0;overflow:hidden">
+          <div style="padding:26px 24px 18px">
+            <span class="num">DISPOSITIVOS</span>
+            <h3 style="margin-top:10px">Reconhece<br>o seu setup.</h3>
+            <p style="margin-top:10px">Placa-mãe, memórias, teclado, vídeo e fitas na rede — com diagnóstico do que está errado.</p>
+          </div>
+          <img src="img/dispositivos.png" alt="Dispositivos detectados no Hydraflow" style="margin-top:auto" />
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- HARDWARE -->
+  <section id="hardware" style="padding-top:0">
+    <div class="wrap">
+      <div class="hw fade">
+        <div class="hw-top">
+          <h3>Hardware<br>suportado</h3>
+          <span class="micro" style="opacity:.55">Sem driver de kernel não assinado</span>
+        </div>
+        <div class="chips">
+          <span class="chip hot">ASUS Aura</span>
+          <span class="chip">Wooting</span>
+          <span class="chip">Corsair DDR4/DDR5</span>
+          <span class="chip">NVIDIA (NVAPI)</span>
+          <span class="chip">AMD (ADL)</span>
+          <span class="chip">WLED / ESP32</span>
+          <span class="chip">Gamdias LCD</span>
+        </div>
+        <p class="hw-note">
+          O RGB da memória usa o PawnIO oficial, assinado pela Microsoft, baixado da fonte na hora da ativação — nada de
+          modo de teste que quebra anti-cheat. Protocolos implementados a partir de SDK e documentação pública.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section id="download" style="padding-top:0">
+    <div class="wrap">
+      <div class="dl fade">
+        <div>
+          <span class="micro" style="color:var(--accent)">Versão 2.0.0 · Windows x64</span>
+          <h2 style="margin-top:14px">Baixe e<br>acenda.</h2>
+          <p class="sub">Instalador com termos de uso, atalho na área de trabalho e escolha da pasta. Fechar a janela deixa o app na bandeja, controlando os LEDs.</p>
+          <div class="dl-actions">
+            <a class="pill" href="https://github.com/HiagoRiquelmo/hydraflow/releases/latest/download/Hydraflow-Setup-2.0.0.exe">
+              Hydraflow-Setup-2.0.0.exe
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 4v12M6 10l6 6 6-6M5 20h14"/></svg>
+            </a>
+            <a class="pill ghost" href="https://github.com/HiagoRiquelmo/hydraflow/releases/latest">Todas as versões</a>
+          </div>
+          <p class="warn" style="margin-top:26px">
+            O executável não tem assinatura digital: na primeira vez o SmartScreen pode avisar —
+            <b style="color:var(--text)">Mais informações → Executar assim mesmo</b>.
+          </p>
+        </div>
+        <div class="dl-side">
+          <div class="meta"><span>Arquivo</span><b>Hydraflow-Setup-2.0.0.exe</b></div>
+          <div class="meta"><span>Tamanho</span><b>~114 MB</b></div>
+          <div class="meta"><span>Requisitos</span><b>Windows 10/11 x64</b></div>
+          <div class="meta"><span>Licença</span><b>MIT</b></div>
+          <p class="warn">Prefere compilar? <a href="https://github.com/HiagoRiquelmo/hydraflow#compilar-build" style="color:var(--mint)">O código está no GitHub</a> — <code style="color:var(--text-2)">npm install</code> e <code style="color:var(--text-2)">npm run dist</code>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARCEIRO -->
+  <section id="resetexplode" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head fade">
+        <h2>Faz par<br>com o PC.</h2>
+        <p>Um cuida do computador. O outro cuida da luz. O ResetExplode é um projeto de outra pessoa — compartilhado aqui com todo o crédito.</p>
+      </div>
+
+      <div class="partner fade">
+        <div class="left">
+          <span class="micro" style="color:#FF8A8A">Projeto de terceiro</span>
+          <h3>Reset<br>Explode</h3>
+          <p>Suíte de diagnóstico e otimização para Windows: sensores, benchmarks de CPU/GPU/ray tracing, limpeza, drivers, overlay e ferramentas de inicialização.</p>
+          <div class="credits">
+            <div class="who">
+              <span class="avatar">GR</span>
+              <div>
+                <strong style="font-size:13.5px">Gustavo Reset</strong>
+                <div class="micro" style="opacity:.6;margin-top:2px">Autor original · MIT</div>
+              </div>
+            </div>
+            <p style="font-size:12px;color:var(--text-3);margin:0">
+              O ResetExplode <b style="color:var(--text-2)">não foi feito por mim</b>. Todos os créditos são do Gustavo.
+              Esta página apenas espelha a versão oficial para download.
+            </p>
+          </div>
+        </div>
+        <div class="right">
+          <div class="meta"><span>Versão espelhada</span><b>v0.17 (latest)</b></div>
+          <div class="meta"><span>Arquivo</span><b>ResetExplode.exe · 188 MB</b></div>
+          <div class="meta"><span>Integridade</span><b style="color:var(--mint)">SHA256 idêntico ao oficial</b></div>
+          <p class="hash">8574b93e81f5e4d9dfb80aca7d8bc7719a025d733dcae0248a2086f98bfa1e33</p>
+          <div class="links">
+            <a class="link-pill" href="https://github.com/HiagoRiquelmo/resetexplode/releases/latest">Baixar (espelho)</a>
+            <a class="link-pill" href="https://github.com/GustavoReset/ResetExplode/releases/tag/latest">Versão original ↗</a>
+            <a class="link-pill" href="https://github.com/GustavoReset/ResetExplode">Repositório do autor ↗</a>
+          </div>
+          <p class="note">Se puder, baixe pelo link original: é o autor que recebe as estatísticas de download. O espelho existe só para deixar os dois apps no mesmo lugar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="mark"><img src="img/icon.png" alt="">Hydraflow</div>
+        <p class="about">Iluminação RGB open source para Windows. Feito para ficar aberto o dia inteiro, leve e sem nuvem.</p>
+      </div>
+      <div>
+        <h4>Projeto</h4>
+        <a href="https://github.com/HiagoRiquelmo/hydraflow">Código no GitHub</a>
+        <a href="https://github.com/HiagoRiquelmo/hydraflow/releases">Releases</a>
+        <a href="https://github.com/HiagoRiquelmo/hydraflow/blob/main/README.md">Guia completo</a>
+        <a href="https://github.com/HiagoRiquelmo/hydraflow/blob/main/LICENSE">Licença MIT</a>
+      </div>
+      <div>
+        <h4>Créditos</h4>
+        <a href="https://github.com/GustavoReset/ResetExplode">ResetExplode — Gustavo Reset</a>
+        <a href="https://github.com/WootingKb/wooting-rgb-sdk">Wooting RGB SDK</a>
+        <a href="https://github.com/namazso/PawnIO">PawnIO</a>
+        <a href="https://www.electronjs.org/">Electron</a>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© 2026 Hiago Riquelmo · MIT</span>
+      <span>Windows e DirectX são marcas da Microsoft. Sem afiliação com ASUS, Corsair, Wooting, NVIDIA, AMD, Gamdias ou WLED.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.documentElement.classList.add('js');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => {
+      es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: .08 });
+    document.querySelectorAll('.fade').forEach((el) => io.observe(el));
+  } else {
+    document.querySelectorAll('.fade').forEach((el) => el.classList.add('in'));
+  }
+</script>
+</body>
+</html>

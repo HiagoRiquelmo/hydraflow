@@ -1,0 +1,56 @@
+<head>
+  <title>Tempestade</title>
+  <meta description="Nuvens escuras e chuva, cortadas por relâmpagos que acendem o setup inteiro de repente." />
+  <meta publisher="Hydraflow" />
+  <meta property="cloud" label="Nuvens" type="color" default="#0b1a3a" />
+  <meta property="flash" label="Relâmpago" type="color" default="#cfe3ff" />
+  <meta property="frequency" label="Relâmpagos" type="number" min="1" max="100" default="35" />
+  <meta property="rain" label="Chuva" type="boolean" default="true" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="50" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  const W = 320, H = 200;
+  const drops = Array.from({ length: 90 }, () => ({ x: Math.random() * W, y: Math.random() * H, s: 4 + Math.random() * 4 }));
+  let t = 0, light = 0, bolt = null;
+  function frame() {
+    const v = speed / 50;
+    t += 0.016 * v;
+    // nuvens: dois degradês que se movem devagar
+    const g = ctx.createLinearGradient(0, 0, 0, H);
+    g.addColorStop(0, cloud); g.addColorStop(1, "#000");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    for (let i = 0; i < 4; i++) {
+      const x = ((t * 12 * (i + 1) + i * 97) % (W + 160)) - 80;
+      const c = ctx.createRadialGradient(x, 30 + i * 12, 5, x, 30 + i * 12, 90);
+      c.addColorStop(0, "rgba(120,140,180,0.22)"); c.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = c; ctx.fillRect(x - 90, 0, 180, 140);
+    }
+    // relâmpago: dispara ao acaso, clareia tudo e apaga rápido (às vezes com um segundo piscar)
+    if (light <= 0 && Math.random() < frequency / 9000 * v) {
+      light = 1;
+      let x = 40 + Math.random() * (W - 80), y = 0; bolt = [[x, y]];
+      while (y < H) { y += 8 + Math.random() * 14; x += (Math.random() - 0.5) * 30; bolt.push([x, y]); }
+    }
+    if (light > 0) {
+      ctx.globalAlpha = Math.min(1, light) * (light > 0.55 && light < 0.7 ? 0.3 : 1);
+      ctx.fillStyle = flash; ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = "#fff"; ctx.lineWidth = 2.5; ctx.beginPath();
+      bolt.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke();
+      ctx.globalAlpha = 1;
+      light -= 0.045 * v;
+    }
+    if (rain) {
+      ctx.strokeStyle = "rgba(150,180,230,0.45)"; ctx.lineWidth = 1; ctx.beginPath();
+      for (const d of drops) {
+        d.y += d.s * v; d.x -= 0.8 * v;
+        if (d.y > H) { d.y = -10; d.x = Math.random() * (W + 40); }
+        ctx.moveTo(d.x, d.y); ctx.lineTo(d.x + 2, d.y - 8);
+      }
+      ctx.stroke();
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

@@ -1,0 +1,8 @@
+{
+  "tooBig": "File too large",
+  "badIndex": "Invalid index: missing \"effects\"",
+  "notFound": "Effect not found in the catalog",
+  "notEffect": "The file doesn't look like an effect (no <canvas>).",
+  "unknownPublisher": "Unknown",
+  "localSource": "Your effects"
+}

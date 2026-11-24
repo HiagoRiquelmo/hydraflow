@@ -1,0 +1,47 @@
+<head>
+  <title>Synthwave</title>
+  <meta description="Sol neon listrado no horizonte e uma grade em perspectiva correndo em sua direção, no clima dos anos 80." />
+  <meta publisher="Hydraflow" />
+  <meta property="sunTop" label="Sol (topo)" type="color" default="#ffd319" />
+  <meta property="sunBottom" label="Sol (base)" type="color" default="#ff2975" />
+  <meta property="grid" label="Cor da grade" type="color" default="#c724ff" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="40" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  const W = 320, H = 200, HOR = 112;
+  let t = 0;
+  function frame() {
+    t += speed / 2000;
+    // céu
+    const sky = ctx.createLinearGradient(0, 0, 0, HOR);
+    sky.addColorStop(0, "#0b0221"); sky.addColorStop(1, "#3b0a5a");
+    ctx.fillStyle = sky; ctx.fillRect(0, 0, W, HOR);
+    // sol com listras que sobem
+    const sg = ctx.createLinearGradient(0, HOR - 70, 0, HOR);
+    sg.addColorStop(0, sunTop); sg.addColorStop(1, sunBottom);
+    ctx.save();
+    ctx.beginPath(); ctx.arc(W / 2, HOR, 58, Math.PI, 0); ctx.clip();
+    ctx.fillStyle = sg; ctx.fillRect(W / 2 - 60, HOR - 60, 120, 60);
+    ctx.fillStyle = "#3b0a5a";
+    for (let k = 0; k < 6; k++) {
+      const y = HOR - 4 - ((k * 9 + t * 40) % 54);
+      ctx.fillRect(W / 2 - 60, y, 120, 1 + (HOR - y) / 18);
+    }
+    ctx.restore();
+    // chão com grade em perspectiva
+    ctx.fillStyle = "#12001f"; ctx.fillRect(0, HOR, W, H - HOR);
+    ctx.strokeStyle = grid; ctx.lineWidth = 1.2; ctx.shadowColor = grid; ctx.shadowBlur = 6;
+    for (let i = -10; i <= 10; i++) { ctx.beginPath(); ctx.moveTo(W / 2 + i * 8, HOR); ctx.lineTo(W / 2 + i * 60, H); ctx.stroke(); }
+    for (let k = 0; k < 10; k++) {
+      const z = ((k + t * 4) % 10) / 10;           // 0 no horizonte, 1 perto
+      const y = HOR + (H - HOR) * z * z;
+      ctx.globalAlpha = 0.25 + z * 0.75;
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+    ctx.globalAlpha = 1; ctx.shadowBlur = 0;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

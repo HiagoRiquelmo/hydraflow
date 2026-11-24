@@ -1,0 +1,34 @@
+<head>
+  <title>Roda de Cor</title>
+  <meta description="Uma roda com todas as cores gira a partir do centro do setup, suave ou em fatias." />
+  <meta publisher="Hydraflow" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="35" />
+  <meta property="slices" label="Fatias (0 = suave)" type="number" min="0" max="24" default="0" />
+  <meta property="reverse" label="Girar ao contrário" type="boolean" default="0" />
+  <meta property="saturation" label="Saturação" type="number" min="0" max="100" default="100" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  let a = 0;
+  function frame() {
+    a += (reverse ? -1 : 1) * speed / 1500;
+    const n = Math.round(slices);
+    if (n >= 2) {
+      // fatias de cor sólida
+      for (let i = 0; i < n; i++) {
+        ctx.fillStyle = `hsl(${i * 360 / n},${saturation}%,50%)`;
+        ctx.beginPath(); ctx.moveTo(160, 100);
+        ctx.arc(160, 100, 200, a + i * Math.PI * 2 / n, a + (i + 1) * Math.PI * 2 / n);
+        ctx.closePath(); ctx.fill();
+      }
+    } else {
+      const g = ctx.createConicGradient(a, 160, 100);
+      for (let i = 0; i <= 12; i++) g.addColorStop(i / 12, `hsl(${i * 30},${saturation}%,50%)`);
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, 320, 200);
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

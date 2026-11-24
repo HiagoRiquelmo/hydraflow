@@ -1,0 +1,37 @@
+<head>
+  <title>Bolhas</title>
+  <meta description="Bolhas coloridas sobem, crescem e se misturam sobre um fundo escuro." />
+  <meta publisher="Hydraflow" />
+  <meta property="bg" label="Fundo" type="color" default="#020617" />
+  <meta property="amount" label="Bolhas" type="number" min="5" max="60" default="22" />
+  <meta property="rainbow" label="Arco-íris" type="boolean" default="true" />
+  <meta property="color" label="Cor (sem arco-íris)" type="color" default="#00c8ff" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="35" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  const W = 320, H = 200;
+  const B = [];
+  const spawn = (b, anywhere) => Object.assign(b, { x: Math.random() * W, y: anywhere ? Math.random() * H : H + 30, r: 8 + Math.random() * 22, s: 0.4 + Math.random() * 0.9, h: Math.random() * 360, w: Math.random() * 6.28 });
+  function frame() {
+    const v = speed / 35;
+    while (B.length < amount) B.push(spawn({}, true));
+    B.length = Math.min(B.length, amount);
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    ctx.globalCompositeOperation = "lighter";
+    for (const b of B) {
+      b.y -= b.s * v; b.w += 0.03 * v; b.x += Math.sin(b.w) * 0.5; b.h = (b.h + 0.4 * v) % 360;
+      if (b.y < -b.r - 10) spawn(b, false);
+      const c = rainbow ? `hsla(${b.h},100%,55%,` : null;
+      const g = ctx.createRadialGradient(b.x - b.r * 0.3, b.y - b.r * 0.3, 1, b.x, b.y, b.r);
+      if (c) { g.addColorStop(0, c + "0.9)"); g.addColorStop(0.7, c + "0.35)"); g.addColorStop(1, c + "0)"); }
+      else { g.addColorStop(0, color); g.addColorStop(1, "rgba(0,0,0,0)"); }
+      ctx.fillStyle = g; ctx.fillRect(b.x - b.r, b.y - b.r, b.r * 2, b.r * 2);
+    }
+    ctx.globalCompositeOperation = "source-over";
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

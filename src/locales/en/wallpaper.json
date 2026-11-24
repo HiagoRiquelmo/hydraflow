@@ -1,0 +1,18 @@
+{
+  "title": "Wallpaper",
+  "addFiles": "Add to library",
+  "subtitle": "Animated images and videos as your desktop background, behind the icons. Everything you add is kept in the Hydraflow library (also used by the liquid cooler screen). Drag files here to add them.",
+  "enabled": "Animated wallpaper",
+  "enabledLabel": "Turn on the animated wallpaper",
+  "pickFirst": "Pick an image or video below first",
+  "fit": "Fit to screen",
+  "fitCover": "Fill (crops the edges)",
+  "fitFill": "Stretch (no cropping)",
+  "fitContain": "Whole (with bars)",
+  "pauseFullscreen": "Pause during games and fullscreen",
+  "pauseMaximized": "Pause behind maximized windows",
+  "pauseMaximizedHint": "Saves CPU and GPU while the wallpaper is hidden. The last frame stays on screen.",
+  "emptyTitle": "The library is empty",
+  "emptyText": "Add GIFs, images (PNG, JPG, WebP) or videos (MP4, WebM) — with the button or by dragging them here. Then just click one to put it on your desktop.",
+  "applied": "Wallpaper applied"
+}

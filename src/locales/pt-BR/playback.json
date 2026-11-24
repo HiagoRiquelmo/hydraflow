@@ -1,0 +1,7 @@
+{
+  "notFound": "Efeito não encontrado",
+  "readFailed": "Não foi possível ler o efeito",
+  "emptyPlaylist": "Playlist vazia",
+  "frameTitle": "efeito",
+  "playingPlaylist": "Tocando playlist \"{name}\""
+}

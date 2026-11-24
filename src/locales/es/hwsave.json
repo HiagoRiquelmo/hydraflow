@@ -1,0 +1,23 @@
+{
+  "button": "Guardar en el dispositivo",
+  "buttonHint": "Guarda el efecto en la memoria del propio hardware, para que siga funcionando después de cerrar Hydraflow",
+  "title": "Guardar en el dispositivo",
+  "intro": "Guarda en la memoria del propio hardware lo que se está reproduciendo ahora. Sigue funcionando con Hydraflow cerrado y después de apagar el PC. Solo se pueden marcar los dispositivos que tienen esa memoria y una forma conocida de escribirla.",
+  "none": "No hay dispositivos conectados.",
+  "save": "Guardar",
+  "saving": "Guardando…",
+  "mode": "Qué guardar",
+  "mode.static": "Los colores actuales (fijos)",
+  "mode.auto": "Modo de la placa parecido al efecto",
+  "mode.breathe": "Color medio respirando",
+  "mode.rainbow": "Arcoíris propio del dispositivo",
+  "supported": "Guarda en la memoria del dispositivo",
+  "reason.ram": "Memoria Corsair: la controladora no tiene una forma documentada de guardar (el modo de memoria de iCUE usa un protocolo cerrado). Mantiene el efecto mientras Hydraflow está abierto.",
+  "reason.plugin": "El plugin de este dispositivo no ofrece guardar en su memoria. Al cerrar, vuelve a su propia iluminación.",
+  "reason.other": "Sin guardado en la memoria del dispositivo.",
+  "done": "{name}: guardado",
+  "failed": "{name}: {error}",
+  "pickOne": "Elige al menos un dispositivo",
+  "warning": "Guardar reemplaza lo que había en el dispositivo. En la placa ASUS, \"Al cerrar la aplicación\" pasa a ser \"Guardado en el dispositivo\".",
+  "panelTitle": "Guardar en el dispositivo"
+}

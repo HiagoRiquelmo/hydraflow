@@ -1,0 +1,28 @@
+<head>
+  <title>Chuva Digital</title>
+  <meta description="Colunas de luz caindo com rastro, em estilo terminal retrô." />
+  <meta publisher="Hydraflow" />
+  <meta property="color" label="Cor" type="color" default="#20ff60" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="50" />
+  <meta property="density" label="Densidade" type="number" min="5" max="100" default="50" />
+  <meta property="trail" label="Comprimento do rastro" type="number" min="5" max="95" default="70" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  const cols = 40, w = 320 / cols;
+  const drops = Array.from({ length: cols }, () => ({ y: Math.random() * -200, v: 0.5 + Math.random() }));
+  function frame() {
+    ctx.globalAlpha = 1 - trail / 100; ctx.fillStyle = "#000"; ctx.fillRect(0, 0, 320, 200);
+    ctx.globalAlpha = 1;
+    drops.forEach((d, i) => {
+      if (d.y < 0 && Math.random() > density / 100) { d.y -= 1; return; }
+      d.y += d.v * speed / 15;
+      ctx.fillStyle = "#ffffff"; ctx.fillRect(i * w, d.y, w - 1, 8);
+      ctx.fillStyle = color; ctx.fillRect(i * w, d.y - 10, w - 1, 10);
+      if (d.y > 220) { d.y = Math.random() * -100; d.v = 0.5 + Math.random(); }
+    });
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

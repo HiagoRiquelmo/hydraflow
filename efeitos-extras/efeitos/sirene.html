@@ -1,0 +1,23 @@
+<head>
+  <title>Sirene</title>
+  <meta description="Alternância entre duas cores em lados opostos, com flashes rápidos." />
+  <meta publisher="Hydraflow" />
+  <meta property="colorA" label="Cor esquerda" type="color" default="#ff0022" />
+  <meta property="colorB" label="Cor direita" type="color" default="#0033ff" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="50" />
+  <meta property="strobe" label="Flashes" type="boolean" default="1" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  let t = 0;
+  function frame() {
+    t += speed / 1000;
+    const phase = Math.floor(t) % 2;
+    const on = !strobe || Math.floor(t * 6) % 2 === 0;
+    ctx.fillStyle = "#000"; ctx.fillRect(0, 0, 320, 200);
+    if (on) { ctx.fillStyle = phase ? colorA : colorB; ctx.fillRect(phase ? 0 : 160, 0, 160, 200); }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

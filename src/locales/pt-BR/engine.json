@@ -1,0 +1,14 @@
+{
+  "renderFailed": "Render falhou repetidamente: {error}",
+  "hidNoAnswer": "Dispositivo não responde (HID)",
+  "hidListFailed": "Falha ao listar HID: {error}",
+  "ramPlugin": "Hydraflow Memória (SMBus)",
+  "gpuZone": "Zona",
+  "gpuWriteFailed": "A placa de vídeo não aceitou as cores",
+  "gpuProvider": "NVIDIA (API oficial de iluminação)",
+  "saveNoDevice": "Dispositivo não encontrado",
+  "saveUnsupported": "Este dispositivo não grava efeitos na própria memória",
+  "saveFailed": "A gravação falhou",
+  "wledStrip": "Fita WLED ({host})",
+  "wledProvider": "WLED (rede)"
+}

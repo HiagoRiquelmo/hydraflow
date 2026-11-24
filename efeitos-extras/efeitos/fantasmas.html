@@ -1,0 +1,36 @@
+<head>
+  <title>Fantasmas</title>
+  <meta description="Manchas de luz translúcidas vagam pelo setup, aparecendo e sumindo enquanto trocam de cor." />
+  <meta publisher="Hydraflow" />
+  <meta property="bg" label="Fundo" type="color" default="#05010f" />
+  <meta property="amount" label="Fantasmas" type="number" min="2" max="14" default="6" />
+  <meta property="saturation" label="Saturação" type="number" min="0" max="100" default="85" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="30" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  const W = 320, H = 200;
+  const G = [];
+  const spawn = g => Object.assign(g, { x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5), vy: (Math.random() - 0.5), r: 40 + Math.random() * 60, h: Math.random() * 360, life: 0, max: 4 + Math.random() * 5 });
+  function frame() {
+    const v = speed / 30, dt = 0.016 * v;
+    while (G.length < amount) { const g = spawn({}); g.life = Math.random() * g.max; G.push(g); }
+    G.length = Math.min(G.length, amount);
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+    ctx.globalCompositeOperation = "lighter";
+    for (const g of G) {
+      g.life += dt; g.x += g.vx * v; g.y += g.vy * v; g.h = (g.h + 20 * dt) % 360;
+      if (g.life > g.max) spawn(g);
+      const a = Math.sin(Math.PI * g.life / g.max); // nasce, brilha e some
+      const grad = ctx.createRadialGradient(g.x, g.y, 0, g.x, g.y, g.r);
+      grad.addColorStop(0, `hsla(${g.h},${saturation}%,60%,${0.75 * a})`);
+      grad.addColorStop(1, `hsla(${g.h},${saturation}%,50%,0)`);
+      ctx.fillStyle = grad; ctx.fillRect(g.x - g.r, g.y - g.r, g.r * 2, g.r * 2);
+    }
+    ctx.globalCompositeOperation = "source-over";
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

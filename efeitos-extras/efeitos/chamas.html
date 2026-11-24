@@ -1,0 +1,37 @@
+<head>
+  <title>Chamas</title>
+  <meta description="Fogo subindo da base do canvas, com intensidade ajustável." />
+  <meta publisher="Hydraflow" />
+  <meta property="intensity" label="Intensidade" type="number" min="10" max="100" default="70" />
+  <meta property="tint" label="Tonalidade" type="combobox" values="Clássico,Azul,Verde,Roxo" default="Clássico" />
+</head>
+<body style="margin:0;background:#000">
+  <canvas id="exCanvas" width="320" height="200"></canvas>
+</body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  const W = 64, H = 40;
+  const heat = new Float32Array(W * H);
+  const off = new OffscreenCanvas(W, H), octx = off.getContext("2d"), img = octx.createImageData(W, H);
+  const tints = { "Clássico": [1, 0.45, 0.08], "Azul": [0.1, 0.45, 1], "Verde": [0.2, 1, 0.3], "Roxo": [0.8, 0.2, 1] };
+  function frame() {
+    for (let x = 0; x < W; x++) heat[(H - 1) * W + x] = Math.random() < intensity / 100 ? 1 : Math.random() * 0.3;
+    for (let y = 0; y < H - 1; y++) for (let x = 0; x < W; x++) {
+      const b = (y + 1) * W;
+      const v = (heat[b + ((x - 1 + W) % W)] + heat[b + x] * 2 + heat[b + ((x + 1) % W)] + heat[Math.min(H - 1, y + 2) * W + x]) / 5.15;
+      heat[y * W + x] = Math.max(0, v - 0.004);
+    }
+    const t = tints[tint] || tints["Clássico"];
+    for (let i = 0; i < W * H; i++) {
+      const h = heat[i];
+      img.data[i * 4] = Math.min(255, h * 255 * t[0] * 2.2);
+      img.data[i * 4 + 1] = Math.min(255, h * h * 255 * t[1] * 2.2);
+      img.data[i * 4 + 2] = Math.min(255, h * h * h * 255 * t[2] * 2.5);
+      img.data[i * 4 + 3] = 255;
+    }
+    octx.putImageData(img, 0, 0);
+    ctx.drawImage(off, 0, 0, 320, 200);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

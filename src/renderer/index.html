@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR" data-tema="neon">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' file: data: https:; media-src 'self' file: blob:; frame-src 'self' file:; child-src 'self' file:;" />
+  <title>Hydraflow</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- textos: data-i18n / data-i18n-title / data-i18n-label são preenchidos por js/i18n.js no idioma escolhido -->
+  <a class="skip-link" href="#view" data-i18n="nav.skip">Pular para o conteúdo</a>
+  <div id="app">
+    <aside id="rail">
+      <div class="wordmark" translate="no">Hydra<span>flow</span></div>
+
+      <nav aria-label="Principal" data-i18n-label="nav.main" class="nav-group">
+      <div class="nav-section" aria-hidden="true" data-i18n="nav.section">Controle</div>
+      <button class="nav-btn" data-view="lighting" data-i18n-title="nav.lightingHint">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.5 1.1 1.3 1.1 2.2h5c0-.9.4-1.7 1.1-2.2A6 6 0 0 0 12 3z"/></svg><span data-i18n="nav.lighting">Iluminação</span>
+      </button>
+      <button class="nav-btn" data-view="screen" data-i18n-title="nav.screenHint">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M7 8h4M7 11h7"/></svg><span data-i18n="nav.screen">Ambiente da Tela</span>
+      </button>
+      <button class="nav-btn" data-view="wallpaper" data-i18n-title="nav.wallpaperHint">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="16" cy="9" r="1.5"/></svg><span data-i18n="nav.wallpaper">Papel de Parede</span>
+      </button>
+      <button class="nav-btn" data-view="cooler" data-i18n-title="nav.coolerHint">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 4c2 3 2 5 0 8M20 12c-3 2-5 2-8 0M12 20c-2-3-2-5 0-8M4 12c3-2 5-2 8 0"/></svg><span data-i18n="nav.cooler">Watercooler</span>
+      </button>
+      <button class="nav-btn" data-view="devices" data-i18n-title="nav.devicesHint">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6.5 10h1M10 10h1M13.5 10h1M17 10h1M7 14h10"/></svg><span data-i18n="nav.devices">Dispositivos</span>
+      </button>
+      </nav>
+
+      <div class="nav-spacer"></div>
+
+      <button class="nav-btn" id="btnSettings" data-i18n-title="nav.settings">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg><span data-i18n="nav.settings">Ajustes</span>
+      </button>
+    </aside>
+
+    <div id="shell">
+      <main id="view" tabindex="-1"></main>
+    </div>
+  </div>
+  <!-- o efeito ativo roda aqui, fora da tela; a aba Iluminação mostra a prévia -->
+  <div id="fxFrameHost" class="fx-host" aria-hidden="true"></div>
+  <div id="toasts" aria-live="polite"></div>
+  <div id="modalRoot"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

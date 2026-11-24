@@ -1,0 +1,37 @@
+<head>
+  <title>Céu Estrelado</title>
+  <meta description="Pontos de luz que surgem e desaparecem sobre um fundo escuro." />
+  <meta publisher="Hydraflow" />
+  <meta property="background" label="Cor de fundo" type="color" default="#050520" />
+  <meta property="starColor" label="Cor das estrelas" type="color" default="#ffffff" />
+  <meta property="randomColors" label="Cores aleatórias" type="boolean" default="0" />
+  <meta property="density" label="Densidade" type="number" min="1" max="100" default="40" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="40" />
+</head>
+<body style="margin:0;background:#000">
+  <canvas id="exCanvas" width="320" height="200"></canvas>
+</body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  let stars = [];
+  function frame() {
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = background;
+    ctx.fillRect(0, 0, 320, 200);
+    if (stars.length < density * 2 && Math.random() < 0.5) {
+      stars.push({ x: Math.random() * 320, y: Math.random() * 200, r: 4 + Math.random() * 10, life: 0, color: randomColors ? `hsl(${Math.random() * 360},100%,60%)` : starColor });
+    }
+    for (const s of stars) {
+      s.life += speed / 2000;
+      const a = Math.sin(Math.min(1, s.life) * Math.PI);
+      const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r);
+      g.addColorStop(0, s.color); g.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.globalAlpha = a;
+      ctx.fillStyle = g;
+      ctx.fillRect(s.x - s.r, s.y - s.r, s.r * 2, s.r * 2);
+    }
+    stars = stars.filter(s => s.life < 1);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

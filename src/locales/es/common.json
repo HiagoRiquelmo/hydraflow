@@ -1,0 +1,13 @@
+{
+  "close": "Cerrar",
+  "cancel": "Cancelar",
+  "confirm": "Confirmar",
+  "more": "Más opciones",
+  "remove": "Quitar",
+  "save": "Guardar",
+  "delete": "Eliminar",
+  "add": "Añadir",
+  "back": "Volver",
+  "colorHex": "Código hexadecimal del color",
+  "colorPick": "Elegir color"
+}

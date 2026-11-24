@@ -1,0 +1,16 @@
+{
+  "skip": "Skip to content",
+  "main": "Main",
+  "section": "Control",
+  "lighting": "Lighting",
+  "lightingHint": "Tune the effect and place your devices",
+  "screen": "Screen Ambience",
+  "screenHint": "LEDs following your monitor and reacting to games",
+  "wallpaper": "Wallpaper",
+  "wallpaperHint": "Animated images and videos as your desktop background",
+  "cooler": "Liquid Cooler",
+  "coolerHint": "Image on your liquid cooler's screen",
+  "devices": "Devices",
+  "devicesHint": "Connected devices",
+  "settings": "Settings"
+}

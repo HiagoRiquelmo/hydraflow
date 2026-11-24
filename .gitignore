@@ -1,0 +1,21 @@
+# Dependências e build
+node_modules/
+dist/
+out/
+build/*.blockmap
+build/*.yml
+*.7z
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Logs e temporários
+*.log
+npm-debug.log*
+*.tmp
+
+# Editor
+.vscode/
+.idea/

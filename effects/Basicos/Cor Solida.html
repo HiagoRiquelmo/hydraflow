@@ -1,0 +1,28 @@
+<head>
+  <title>Cor Sólida</title>
+  <meta description="Uma única cor em todo o setup, com respiração opcional." />
+  <meta publisher="Hydraflow" />
+  <!-- começa preta: na primeira abertura nada acende sozinho e a pessoa escolhe a cor do jeito que quiser -->
+  <meta property="color" label="Cor" type="color" default="#000000" />
+  <meta property="breathe" label="Respiração" type="boolean" default="0" />
+  <meta property="speed" label="Velocidade da respiração" type="number" min="1" max="100" default="40" />
+</head>
+<body style="margin:0;background:#000">
+  <canvas id="exCanvas" width="320" height="200"></canvas>
+</body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  let t = 0;
+  function frame() {
+    let a = 1;
+    if (breathe) { t += speed / 1500; a = 0.15 + 0.85 * (Math.sin(t) * 0.5 + 0.5); }
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = "#000";
+    ctx.fillRect(0, 0, 320, 200);
+    ctx.globalAlpha = a;
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, 320, 200);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

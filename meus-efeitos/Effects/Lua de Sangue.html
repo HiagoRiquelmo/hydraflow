@@ -1,0 +1,38 @@
+<head>
+  <title>Lua de Sangue</title>
+  <meta description="Um enxame de faíscas vermelhas gira em volta de uma lua carmesim que pulsa devagar." />
+  <meta publisher="Hydraflow" />
+  <meta property="moon" label="Lua" type="color" default="#ff1a1a" />
+  <meta property="swarm" label="Enxame" type="color" default="#ff6a3d" />
+  <meta property="amount" label="Partículas" type="number" min="20" max="200" default="90" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="40" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  const W = 320, H = 200, CX = W / 2, CY = H / 2;
+  const P = [];
+  let t = 0;
+  function frame() {
+    const v = speed / 40;
+    t += 0.016 * v;
+    while (P.length < amount) P.push({ a: Math.random() * 6.28, r: 30 + Math.random() * 140, w: (0.3 + Math.random()) * (Math.random() < 0.5 ? 1 : -1), z: Math.random() });
+    P.length = Math.min(P.length, amount);
+    // rastro: escurece o quadro anterior em vez de apagar
+    ctx.globalAlpha = 0.18; ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
+    const pulse = 0.75 + 0.25 * Math.sin(t * 1.5);
+    const g = ctx.createRadialGradient(CX, CY, 4, CX, CY, 70 * pulse + 20);
+    g.addColorStop(0, "#fff"); g.addColorStop(0.15, moon); g.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.globalAlpha = 0.9; ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = swarm;
+    for (const p of P) {
+      p.a += p.w * 0.02 * v * (60 / p.r);
+      const x = CX + Math.cos(p.a) * p.r, y = CY + Math.sin(p.a) * p.r * 0.62;
+      ctx.globalAlpha = 0.4 + 0.6 * p.z;
+      ctx.fillRect(x - 1.5, y - 1.5, 3, 3);
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

@@ -1,0 +1,10 @@
+{
+  "noDxgi": "DXGI indisponível",
+  "noMonitor": "Monitor principal não encontrado",
+  "noD3d": "Direct3D 11 indisponível ({code})",
+  "noDuplication": "Duplicação de tela não suportada",
+  "duplicateFailed": "Não foi possível duplicar a tela ({code})",
+  "mipsFailed": "Falha ao preparar a redução na placa de vídeo",
+  "textureFailed": "Falha ao criar textura ({code})",
+  "grabFailed": "Falha ao capturar ({code})"
+}

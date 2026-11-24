@@ -1,0 +1,18 @@
+{
+  "title": "Fondo de Pantalla",
+  "addFiles": "Añadir a la biblioteca",
+  "subtitle": "Imágenes animadas y videos como fondo del escritorio, detrás de los iconos. Todo lo que añades queda guardado en la biblioteca de Hydraflow (también la usa la pantalla de la refrigeración líquida). Arrastra archivos aquí para añadirlos.",
+  "enabled": "Fondo de pantalla animado",
+  "enabledLabel": "Activar el fondo de pantalla animado",
+  "pickFirst": "Primero elige una imagen o un video abajo",
+  "fit": "Ajuste a la pantalla",
+  "fitCover": "Rellenar (recorta los bordes)",
+  "fitFill": "Estirar (sin recortar)",
+  "fitContain": "Completa (con franjas)",
+  "pauseFullscreen": "Pausar en juegos y pantalla completa",
+  "pauseMaximized": "Pausar detrás de ventanas maximizadas",
+  "pauseMaximizedHint": "Ahorra CPU y GPU mientras el fondo está oculto. El último fotograma sigue en pantalla.",
+  "emptyTitle": "La biblioteca está vacía",
+  "emptyText": "Añade GIFs, imágenes (PNG, JPG, WebP) o videos (MP4, WebM) — con el botón o arrastrándolos aquí. Después solo tienes que hacer clic en uno para ponerlo en el escritorio.",
+  "applied": "Fondo de pantalla aplicado"
+}

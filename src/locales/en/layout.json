@@ -1,0 +1,12 @@
+{
+  "copyOne": "Select only one item to copy",
+  "copied": "Item settings copied",
+  "pasted": "Settings pasted",
+  "flipX": "Flip X axis",
+  "flipY": "Flip Y axis",
+  "front": "Bring to front",
+  "back": "Send to back",
+  "hideOthers": "Hide the others",
+  "copy": "Copy settings (Ctrl+C)",
+  "paste": "Paste settings (Ctrl+V)"
+}

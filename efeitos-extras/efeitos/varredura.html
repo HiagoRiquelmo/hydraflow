@@ -1,0 +1,33 @@
+<head>
+  <title>Varredura</title>
+  <meta description="Uma barra de luz que percorre o setup de um lado ao outro." />
+  <meta publisher="Hydraflow" />
+  <meta property="barColor" label="Cor da barra" type="color" default="#ff2a6d" />
+  <meta property="background" label="Cor de fundo" type="color" default="#000000" />
+  <meta property="width" label="Largura" type="number" min="5" max="100" default="25" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="40" />
+  <meta property="mode" label="Movimento" type="combobox" values="Vai e volta,Contínuo" default="Vai e volta" />
+  <meta property="vertical" label="Vertical" type="boolean" default="0" />
+</head>
+<body style="margin:0;background:#000">
+  <canvas id="exCanvas" width="320" height="200"></canvas>
+</body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  let pos = 0, dir = 1;
+  function frame() {
+    const len = vertical ? 200 : 320;
+    const w = width / 100 * len * 0.6;
+    pos += dir * speed / 15;
+    if (mode === "Contínuo") { if (pos > len + w) pos = -w; }
+    else { if (pos > len) { pos = len; dir = -1; } if (pos < 0) { pos = 0; dir = 1; } }
+    ctx.fillStyle = background;
+    ctx.fillRect(0, 0, 320, 200);
+    const g = vertical ? ctx.createLinearGradient(0, pos - w, 0, pos + w) : ctx.createLinearGradient(pos - w, 0, pos + w, 0);
+    g.addColorStop(0, "rgba(0,0,0,0)"); g.addColorStop(0.5, barColor); g.addColorStop(1, "rgba(0,0,0,0)");
+    ctx.fillStyle = g;
+    if (vertical) ctx.fillRect(0, pos - w, 320, w * 2); else ctx.fillRect(pos - w, 0, w * 2, 200);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

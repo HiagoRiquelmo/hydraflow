@@ -1,0 +1,23 @@
+{
+  "preparing": "Preparing…",
+  "assetMissing": "File not found in release {version}",
+  "downloadingModule": "Downloading the official SMBus module…",
+  "modulesMissing": "SMBus modules not found in the official package",
+  "zipBad": "The downloaded package is damaged ({error})",
+  "http": "HTTP {status} while accessing {url}",
+  "downloadingDriver": "Downloading the official PawnIO driver…",
+  "installingDriver": "Installing the driver (confirm the Windows prompt)…",
+  "installCancelled": "Installation cancelled",
+  "installerFailed": "Failed to run the installer",
+  "startingHelper": "Starting the memory helper…",
+  "confirmUac": "Confirm the Windows permission to turn on memory RGB…",
+  "uacDenied": "Permission denied by Windows.",
+  "helperNoAnswer": "The memory helper didn't respond. Restart Hydraflow to finish activating.",
+  "noDriver": "The driver wasn't installed.",
+  "noSmbus": "No compatible SMBus controller: {details}",
+  "driverMissing": "The PawnIO driver isn't installed",
+  "driverDenied": "Access to the driver denied (administrator permission required)",
+  "driverOpen": "Failed to open PawnIO (error {code})",
+  "moduleRefused": "Module refused by the driver (error {code})",
+  "dimmName": "{name} · stick {n}"
+}

@@ -1,0 +1,8 @@
+{
+  "tooBig": "Arquivo grande demais",
+  "badIndex": "Índice inválido: faltando \"effects\"",
+  "notFound": "Efeito não encontrado no catálogo",
+  "notEffect": "O arquivo não parece um efeito (sem <canvas>).",
+  "unknownPublisher": "Desconhecido",
+  "localSource": "Seus efeitos"
+}

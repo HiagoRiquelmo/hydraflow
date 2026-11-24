@@ -1,0 +1,56 @@
+<head>
+  <title>Chama Neon</title>
+  <meta description="Labaredas em cores neon sobem da base do setup, com brilho intenso e movimento de fogo." />
+  <meta publisher="Hydraflow" />
+  <meta property="palette" label="Cor da chama" type="combobox" values="Magenta,Ciano,Verde,Roxo,Arco-íris" default="Magenta" />
+  <meta property="intensity" label="Intensidade" type="number" min="10" max="100" default="70" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="50" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  // fogo clássico em grade pequena: cada célula esfria um pouco ao subir
+  const GW = 80, GH = 50;
+  const small = document.createElement("canvas"); small.width = GW; small.height = GH;
+  const sctx = small.getContext("2d");
+  const img = sctx.createImageData(GW, GH);
+  const heat = new Float32Array(GW * GH);
+  const PAL = { Magenta: [255, 30, 200], Ciano: [0, 230, 255], Verde: [60, 255, 90], Roxo: [150, 60, 255] };
+  let acc = 0, hue = 0;
+  function color(v, x) {
+    // do escuro para a cor neon e para o branco no centro mais quente
+    let c = PAL[palette];
+    if (!c) { const h = (hue + x * 4) % 360; c = hslRgb(h); }
+    if (v < 0.5) { const k = v * 2; return [c[0] * k, c[1] * k, c[2] * k]; }
+    const k = (v - 0.5) * 2;
+    return [c[0] + (255 - c[0]) * k * 0.7, c[1] + (255 - c[1]) * k * 0.7, c[2] + (255 - c[2]) * k * 0.7];
+  }
+  function hslRgb(h) {
+    const f = n => { const k = (n + h / 30) % 12; return 255 * (0.5 - 0.5 * Math.max(-1, Math.min(k - 3, 9 - k, 1))); };
+    return [f(0), f(8), f(4)];
+  }
+  function step() {
+    for (let x = 0; x < GW; x++) heat[(GH - 1) * GW + x] = Math.random() < intensity / 100 ? 1 : Math.random() * 0.3;
+    for (let y = 0; y < GH - 1; y++) for (let x = 0; x < GW; x++) {
+      const below = (y + 1) * GW;
+      const s = heat[below + x] + heat[below + ((x + GW - 1) % GW)] + heat[below + ((x + 1) % GW)] + heat[Math.min(GH - 1, y + 2) * GW + x];
+      // quanto mais alto, mais esfria: as labaredas ficam na metade de baixo
+      heat[y * GW + x] = Math.max(0, s / 4 - 0.028 - Math.random() * 0.022);
+    }
+  }
+  function frame() {
+    acc += speed / 50;
+    while (acc >= 1) { step(); acc--; }
+    hue = (hue + 0.6) % 360;
+    let i = 0;
+    for (let y = 0; y < GH; y++) for (let x = 0; x < GW; x++) {
+      const [r, g, b] = color(Math.min(1, heat[y * GW + x] * 1.3), x);
+      img.data[i++] = r; img.data[i++] = g; img.data[i++] = b; img.data[i++] = 255;
+    }
+    sctx.putImageData(img, 0, 0);
+    ctx.imageSmoothingEnabled = true;
+    ctx.drawImage(small, 0, 0, 320, 200);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

@@ -1,0 +1,16 @@
+{
+  "skip": "Ir al contenido",
+  "main": "Principal",
+  "section": "Control",
+  "lighting": "Iluminación",
+  "lightingHint": "Ajusta el efecto y coloca tus dispositivos",
+  "screen": "Ambiente de Pantalla",
+  "screenHint": "LEDs que siguen al monitor y reaccionan a los juegos",
+  "wallpaper": "Fondo de Pantalla",
+  "wallpaperHint": "Imágenes animadas y videos como fondo del escritorio",
+  "cooler": "Refrigeración Líquida",
+  "coolerHint": "Imagen en la pantalla de tu refrigeración líquida",
+  "devices": "Dispositivos",
+  "devicesHint": "Dispositivos conectados",
+  "settings": "Ajustes"
+}

@@ -1,0 +1,33 @@
+<head>
+  <title>Batimento</title>
+  <meta description="Pulso duplo de luz no ritmo de um coração." />
+  <meta publisher="Hydraflow" />
+  <meta property="color" label="Cor" type="color" default="#ff1744" />
+  <meta property="bpm" label="Batidas por minuto" type="number" min="30" max="180" default="70" />
+  <meta property="minLevel" label="Brilho mínimo" type="number" min="0" max="60" default="8" />
+  <meta property="radial" label="Pulso a partir do centro" type="boolean" default="1" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  const start = performance.now();
+  function level(p) {
+    const a = Math.exp(-Math.pow((p - 0.08) / 0.04, 2));
+    const b = Math.exp(-Math.pow((p - 0.28) / 0.05, 2)) * 0.7;
+    return Math.max(a, b);
+  }
+  function frame(now) {
+    const p = (((now - start) / 1000) * bpm / 60) % 1;
+    const l = minLevel / 100 + (1 - minLevel / 100) * level(p);
+    ctx.globalAlpha = 1; ctx.fillStyle = "#000"; ctx.fillRect(0, 0, 320, 200);
+    ctx.globalAlpha = l;
+    if (radial) {
+      const g = ctx.createRadialGradient(160, 100, 0, 160, 100, 60 + 160 * l);
+      g.addColorStop(0, color); g.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = g;
+    } else ctx.fillStyle = color;
+    ctx.fillRect(0, 0, 320, 200);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

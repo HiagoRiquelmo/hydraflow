@@ -1,0 +1,9 @@
+{
+  "ring": "Anel genérico - {n} LEDs",
+  "doubleRing": "Fan anel duplo - {n} LEDs",
+  "strip": "Fita genérica - {n} LEDs",
+  "customStrip": "Fita personalizada - {n} LEDs",
+  "defaultStrip": "Fita padrão - {n}",
+  "generic": "Genérico",
+  "defaultReplaced": "Fita padrão (marcador) substituída pelo componente escolhido"
+}

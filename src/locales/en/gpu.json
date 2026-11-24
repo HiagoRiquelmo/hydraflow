@@ -1,0 +1,16 @@
+{
+  "title": "Graphics cards",
+  "none": "No NVIDIA or AMD graphics card found by the drivers.",
+  "nvidiaNoZones": "{name}: no LEDs controllable through NVIDIA's official API (normal for cards without RGB or from vendors that use their own controller).",
+  "nvidiaZones": {
+    "one": "{name}: {n} light zone — shown in the list as a device.",
+    "other": "{name}: {n} light zones — shown in the list as a device."
+  },
+  "others": "NVIDIA cards with NVIDIA's lighting API and Sapphire, PowerColor, ASUS, MSI and Gigabyte AMD cards work straight through the driver, with no other apps.",
+  "amdZones": {
+    "one": "{name}: {n} LED controlled straight through the AMD driver — shows up in the list as a device.",
+    "other": "{name}: {n} LEDs controlled straight through the AMD driver — show up in the list as a device."
+  },
+  "amdSilent": "{name}: known RGB model, but the LED chip did not answer (another RGB app open, or different firmware).",
+  "amdNoRgb": "{name}: no known LEDs (reference card, integrated graphics or a model not on the list yet)."
+}

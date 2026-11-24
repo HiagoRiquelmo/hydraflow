@@ -1,0 +1,9 @@
+{
+  "ring": "Generic ring - {n} LEDs",
+  "doubleRing": "Dual-ring fan - {n} LEDs",
+  "strip": "Generic strip - {n} LEDs",
+  "customStrip": "Custom strip - {n} LEDs",
+  "defaultStrip": "Default strip - {n}",
+  "generic": "Generic",
+  "defaultReplaced": "Default strip (placeholder) replaced by the chosen component"
+}

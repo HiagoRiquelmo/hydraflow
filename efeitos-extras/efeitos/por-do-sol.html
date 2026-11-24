@@ -1,0 +1,23 @@
+<head>
+  <title>Pôr do Sol</title>
+  <meta description="Gradiente quente que respira lentamente entre laranja, rosa e roxo." />
+  <meta publisher="Hydraflow" />
+  <meta property="speed" label="Velocidade da respiração" type="number" min="0" max="100" default="15" />
+  <meta property="colorTop" label="Cor do topo" type="color" default="#3a0ca3" />
+  <meta property="colorMiddle" label="Cor do meio" type="color" default="#f72585" />
+  <meta property="colorBottom" label="Cor da base" type="color" default="#ff9e00" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  let t = 0;
+  function frame() {
+    t += speed / 3000;
+    const m = 0.5 + Math.sin(t) * 0.2;
+    const g = ctx.createLinearGradient(0, 0, 0, 200);
+    g.addColorStop(0, colorTop); g.addColorStop(m, colorMiddle); g.addColorStop(1, colorBottom);
+    ctx.fillStyle = g; ctx.fillRect(0, 0, 320, 200);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

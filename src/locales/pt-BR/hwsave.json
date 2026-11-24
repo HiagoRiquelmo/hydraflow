@@ -1,0 +1,23 @@
+{
+  "button": "Salvar no dispositivo",
+  "buttonHint": "Grava o efeito na memória do próprio hardware, para continuar depois que o Hydraflow fecha",
+  "title": "Salvar no dispositivo",
+  "intro": "Grava na memória do próprio hardware o que está tocando agora. Continua funcionando com o Hydraflow fechado e depois de desligar o PC. Só aparecem marcados os dispositivos que têm essa memória e um jeito conhecido de gravar.",
+  "none": "Nenhum dispositivo conectado.",
+  "save": "Gravar",
+  "saving": "Gravando…",
+  "mode": "O que gravar",
+  "mode.static": "As cores de agora (fixas)",
+  "mode.auto": "Modo da placa parecido com o efeito",
+  "mode.breathe": "Cor média respirando",
+  "mode.rainbow": "Arco-íris do próprio dispositivo",
+  "supported": "Grava na memória do dispositivo",
+  "reason.ram": "Memória Corsair: a controladora não tem gravação documentada (o modo de memória do iCUE usa um protocolo fechado). Fica com o efeito enquanto o Hydraflow está aberto.",
+  "reason.plugin": "O plugin deste dispositivo não oferece gravação na memória dele. Ao fechar, ele volta à iluminação própria.",
+  "reason.other": "Sem gravação na memória do dispositivo.",
+  "done": "{name}: gravado",
+  "failed": "{name}: {error}",
+  "pickOne": "Escolha pelo menos um dispositivo",
+  "warning": "A gravação substitui o que estava salvo no dispositivo. Para a placa ASUS, \"Ao fechar o app\" passa a ser \"Gravado no dispositivo\".",
+  "panelTitle": "Salvar no dispositivo"
+}

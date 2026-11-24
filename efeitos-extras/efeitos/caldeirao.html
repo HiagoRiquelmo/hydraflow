@@ -1,0 +1,46 @@
+<head>
+  <title>Caldeirão</title>
+  <meta description="Poção borbulhando: líquido verde que ondula na base e bolhas que sobem e estouram." />
+  <meta publisher="Hydraflow" />
+  <meta property="potion" label="Poção" type="color" default="#39ff14" />
+  <meta property="deep" label="Fundo da poção" type="color" default="#064d00" />
+  <meta property="sky" label="Céu" type="color" default="#12001f" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="40" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  const W = 320, H = 200;
+  const B = [];
+  let t = 0;
+  function frame() {
+    const v = speed / 40;
+    t += 0.016 * v;
+    ctx.fillStyle = sky; ctx.fillRect(0, 0, W, H);
+    // superfície ondulando
+    const level = H * 0.55;
+    const g = ctx.createLinearGradient(0, level - 10, 0, H);
+    g.addColorStop(0, potion); g.addColorStop(1, deep);
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.moveTo(0, H);
+    for (let x = 0; x <= W; x += 8) ctx.lineTo(x, level + Math.sin(x / 23 + t * 3) * 5 + Math.sin(x / 9 - t * 5) * 2);
+    ctx.lineTo(W, H); ctx.fill();
+    // bolhas
+    if (Math.random() < 0.25 * v) B.push({ x: Math.random() * W, y: H, r: 2 + Math.random() * 7, s: 0.6 + Math.random() * 1.2 });
+    ctx.strokeStyle = potion; ctx.lineWidth = 1.5;
+    for (let i = B.length - 1; i >= 0; i--) {
+      const b = B[i];
+      b.y -= b.s * v; b.x += Math.sin(t * 4 + b.r) * 0.4;
+      if (b.y < level - 40 - b.r * 4) { B.splice(i, 1); continue; } // estoura acima da superfície
+      ctx.globalAlpha = b.y < level ? 0.5 : 0.85;
+      ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, 6.28); ctx.stroke();
+    }
+    // brilho que sobe da poção
+    const glow = ctx.createLinearGradient(0, level - 70, 0, level);
+    glow.addColorStop(0, "rgba(0,0,0,0)"); glow.addColorStop(1, potion);
+    ctx.globalAlpha = 0.25 + 0.1 * Math.sin(t * 2); ctx.fillStyle = glow; ctx.fillRect(0, level - 70, W, 70);
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

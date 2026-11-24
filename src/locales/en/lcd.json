@@ -1,0 +1,15 @@
+{
+  "portBusy": "The screen's port {port} is open in another program (usually ZEUS CAST). Close it so Hydraflow can use the screen.",
+  "portGone": "Port {port} disappeared (cable unplugged or the cooler restarted).",
+  "portOpen": "Windows couldn't open port {port} (error {code}).",
+  "shortWrite": "incomplete write ({done} of {total} bytes)",
+  "hidBusy": "Windows couldn't open the screen over HID (another program, such as ZEUS CAST, may be using it): {error}",
+  "noAnswer": "The screen didn't answer the \"{command}\" command ({port}). Turn the PC off and on if it keeps happening.",
+  "badReply": "Invalid reply from the screen to the \"{command}\" command: {error}.",
+  "refused": "The screen refused the \"{command}\" command (code {code}).",
+  "imageRefused": "The screen refused the image ({reason}).",
+  "stopped": "The screen stopped receiving images: {error}",
+  "reply.short": "reply too short",
+  "reply.checksum": "reply checksum or length doesn't match",
+  "reply.nostatus": "reply without a status code"
+}

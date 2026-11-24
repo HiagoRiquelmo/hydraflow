@@ -1,0 +1,20 @@
+<head>
+  <title>Arco-íris Respirando</title>
+  <meta description="Todo o setup em uma só cor que percorre o espectro, com respiração suave." />
+  <meta publisher="Hydraflow" />
+  <meta property="speed" label="Velocidade da troca de cor" type="number" min="1" max="100" default="20" />
+  <meta property="breathe" label="Respiração" type="boolean" default="1" />
+  <meta property="breatheSpeed" label="Velocidade da respiração" type="number" min="1" max="100" default="30" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  let h = 0, b = 0;
+  function frame() {
+    h = (h + speed / 50) % 360; b += breatheSpeed / 1500;
+    const l = breathe ? 10 + 40 * (Math.sin(b) * 0.5 + 0.5) : 50;
+    ctx.fillStyle = `hsl(${h},100%,${l}%)`; ctx.fillRect(0, 0, 320, 200);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

@@ -1,0 +1,23 @@
+{
+  "preparing": "Preparando…",
+  "assetMissing": "Archivo no encontrado en la versión {version}",
+  "downloadingModule": "Descargando el módulo SMBus oficial…",
+  "modulesMissing": "No se encontraron los módulos SMBus en el paquete oficial",
+  "zipBad": "El paquete descargado está dañado ({error})",
+  "http": "HTTP {status} al acceder a {url}",
+  "downloadingDriver": "Descargando el controlador PawnIO oficial…",
+  "installingDriver": "Instalando el controlador (confirma la ventana de Windows)…",
+  "installCancelled": "Instalación cancelada",
+  "installerFailed": "Error al ejecutar el instalador",
+  "startingHelper": "Iniciando el auxiliar de memoria…",
+  "confirmUac": "Confirma el permiso de Windows para activar el RGB de las memorias…",
+  "uacDenied": "Windows denegó el permiso.",
+  "helperNoAnswer": "El auxiliar de memoria no respondió. Reinicia Hydraflow para completar la activación.",
+  "noDriver": "El controlador no se instaló.",
+  "noSmbus": "Ningún controlador SMBus compatible: {details}",
+  "driverMissing": "El controlador PawnIO no está instalado",
+  "driverDenied": "Acceso denegado al controlador (se necesita permiso de administrador)",
+  "driverOpen": "Error al abrir PawnIO (error {code})",
+  "moduleRefused": "El controlador rechazó el módulo (error {code})",
+  "dimmName": "{name} · módulo {n}"
+}

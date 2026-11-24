@@ -1,0 +1,28 @@
+<head>
+  <title>Ondulação</title>
+  <meta description="Anéis de cor se espalham a partir de pontos aleatórios, como gotas na água." />
+  <meta publisher="Hydraflow" />
+  <meta property="rate" label="Frequência de gotas" type="number" min="1" max="100" default="35" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="45" />
+  <meta property="rainbow" label="Cores aleatórias" type="boolean" default="1" />
+  <meta property="color" label="Cor (sem aleatório)" type="color" default="#00c8ff" />
+  <meta property="background" label="Fundo" type="color" default="#000000" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  let rings = [];
+  function frame() {
+    ctx.globalAlpha = 1; ctx.fillStyle = background; ctx.fillRect(0, 0, 320, 200);
+    if (Math.random() < rate / 600) rings.push({ x: Math.random() * 320, y: Math.random() * 200, r: 0, c: rainbow ? `hsl(${Math.random() * 360},100%,55%)` : color });
+    for (const g of rings) {
+      g.r += speed / 25;
+      ctx.globalAlpha = Math.max(0, 1 - g.r / 260);
+      ctx.strokeStyle = g.c; ctx.lineWidth = 14;
+      ctx.beginPath(); ctx.arc(g.x, g.y, g.r, 0, Math.PI * 2); ctx.stroke();
+    }
+    rings = rings.filter(g => g.r < 260);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

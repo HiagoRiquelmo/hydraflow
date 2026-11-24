@@ -1,0 +1,20 @@
+{
+  "trayOpen": "Open Hydraflow",
+  "trayNext": "Next effect",
+  "trayPause": "Pause / resume",
+  "trayQuit": "Quit",
+  "captureNoAnswer": "The capture didn't respond",
+  "captureStopped": "The capture stopped",
+  "fileGone": "The chosen file no longer exists.",
+  "wallpaperStopped": "The wallpaper stopped.",
+  "engineExited": "Device engine exited (code {code}). Restarting…",
+  "importEffect": "Import effect",
+  "effectsFilter": "Effects",
+  "badAddress": "Invalid address",
+  "notWled": "Doesn't look like a WLED (no \"leds.count\" in /json/info)",
+  "wledNoAnswer": "No response (check the IP and that the WLED is on the same network)",
+  "pickFolder": "Choose folder",
+  "notRemovable": "Only imported or downloaded effects can be uninstalled.",
+  "mediaPick": "Add to the Hydraflow library",
+  "mediaFilter": "Images, GIFs and videos"
+}

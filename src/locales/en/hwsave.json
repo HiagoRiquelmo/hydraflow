@@ -1,0 +1,23 @@
+{
+  "button": "Save to device",
+  "buttonHint": "Stores the effect in the hardware's own memory, so it keeps running after Hydraflow closes",
+  "title": "Save to device",
+  "intro": "Stores what's playing now in the hardware's own memory. It keeps working with Hydraflow closed and after turning off the PC. Only devices with that memory and a known way to write it can be selected.",
+  "none": "No devices connected.",
+  "save": "Save",
+  "saving": "Saving…",
+  "mode": "What to save",
+  "mode.static": "The current colors (static)",
+  "mode.auto": "Board mode similar to the effect",
+  "mode.breathe": "Average color breathing",
+  "mode.rainbow": "The device's own rainbow",
+  "supported": "Saves to the device's memory",
+  "reason.ram": "Corsair memory: the controller has no documented way to save (iCUE's device memory mode uses a closed protocol). It keeps the effect while Hydraflow is open.",
+  "reason.plugin": "This device's plugin doesn't offer saving to its memory. When closing, it goes back to its own lighting.",
+  "reason.other": "No saving to the device's memory.",
+  "done": "{name}: saved",
+  "failed": "{name}: {error}",
+  "pickOne": "Choose at least one device",
+  "warning": "Saving replaces what was stored on the device. For the ASUS board, \"When the app closes\" becomes \"Saved on device\".",
+  "panelTitle": "Save to device"
+}

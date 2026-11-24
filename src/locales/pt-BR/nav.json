@@ -1,0 +1,16 @@
+{
+  "skip": "Pular para o conteúdo",
+  "main": "Principal",
+  "section": "Controle",
+  "lighting": "Iluminação",
+  "lightingHint": "Ajuste o efeito e posicione os dispositivos",
+  "screen": "Ambiente da Tela",
+  "screenHint": "LEDs acompanhando o monitor e reagindo aos jogos",
+  "wallpaper": "Papel de Parede",
+  "wallpaperHint": "Imagens animadas e vídeos como fundo da área de trabalho",
+  "cooler": "Watercooler",
+  "coolerHint": "Imagem na tela do watercooler",
+  "devices": "Dispositivos",
+  "devicesHint": "Dispositivos conectados",
+  "settings": "Ajustes"
+}

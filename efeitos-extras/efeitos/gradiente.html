@@ -1,0 +1,31 @@
+<head>
+  <title>Gradiente Duplo</title>
+  <meta description="Transição suave entre duas cores, opcionalmente em movimento." />
+  <meta publisher="Hydraflow" />
+  <meta property="colorA" label="Cor A" type="color" default="#ff0080" />
+  <meta property="colorB" label="Cor B" type="color" default="#00e5ff" />
+  <meta property="animate" label="Animar" type="boolean" default="1" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="30" />
+  <meta property="angle" label="Ângulo" type="number" min="0" max="360" default="0" />
+</head>
+<body style="margin:0;background:#000">
+  <canvas id="exCanvas" width="320" height="200"></canvas>
+</body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  let p = 0;
+  function frame() {
+    if (animate) p += speed / 2000;
+    const a = (angle * Math.PI) / 180;
+    const dx = Math.cos(a) * 200, dy = Math.sin(a) * 200;
+    const g = ctx.createLinearGradient(160 - dx, 100 - dy, 160 + dx, 100 + dy);
+    const s = (Math.sin(p * Math.PI * 2) * 0.5 + 0.5);
+    g.addColorStop(0, colorA);
+    g.addColorStop(Math.min(0.95, Math.max(0.05, s)), colorB);
+    g.addColorStop(1, colorA);
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, 320, 200);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

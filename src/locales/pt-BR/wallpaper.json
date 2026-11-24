@@ -1,0 +1,18 @@
+{
+  "title": "Papel de Parede",
+  "addFiles": "Adicionar à biblioteca",
+  "subtitle": "Imagens animadas e vídeos como fundo da área de trabalho, atrás dos ícones. Tudo o que você adiciona fica guardado na biblioteca do Hydraflow (também usada pela tela do watercooler). Arraste arquivos para cá para adicionar.",
+  "enabled": "Papel de parede animado",
+  "enabledLabel": "Ligar o papel de parede animado",
+  "pickFirst": "Escolha uma imagem ou vídeo abaixo primeiro",
+  "fit": "Ajuste à tela",
+  "fitCover": "Preencher (corta as sobras)",
+  "fitFill": "Esticar (sem cortar)",
+  "fitContain": "Inteira (com faixas)",
+  "pauseFullscreen": "Pausar em jogos e tela cheia",
+  "pauseMaximized": "Pausar atrás de janelas maximizadas",
+  "pauseMaximizedHint": "Economiza processador e placa de vídeo enquanto o papel de parede está escondido. O último quadro continua na tela.",
+  "emptyTitle": "A biblioteca está vazia",
+  "emptyText": "Adicione GIFs, imagens (PNG, JPG, WebP) ou vídeos (MP4, WebM) — pelo botão ou arrastando para cá. Depois é só clicar em um para colocá-lo na área de trabalho.",
+  "applied": "Papel de parede aplicado"
+}

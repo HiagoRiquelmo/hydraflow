@@ -1,0 +1,102 @@
+{
+  "name": "hydraflow",
+  "productName": "Hydraflow",
+  "version": "2.0.0",
+  "description": "Controle de iluminação RGB: efeitos, layouts, dispositivos, biblioteca e explorar.",
+  "author": "Hydraflow",
+  "main": "src/main/main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "check": "node scripts/check.js",
+    "icon": "electron scripts/make-icon.js",
+    "dist": "electron-builder --win nsis portable",
+    "dist:dir": "electron-builder --win dir"
+  },
+  "dependencies": {
+    "koffi": "^2.13.0",
+    "node-hid": "3.4.0"
+  },
+  "devDependencies": {
+    "electron": "45.3.0",
+    "electron-builder": "^26.18.1"
+  },
+  "build": {
+    "appId": "com.hydraflow.app",
+    "productName": "Hydraflow",
+    "copyright": "Hydraflow",
+    "asar": false,
+    "npmRebuild": false,
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**/*",
+      "effects/**/*",
+      "efeitos-extras/**/*",
+      "plugins/**/*",
+      "build/icon.png",
+      "build/icon.ico",
+      "package.json",
+      "!scripts/**/*",
+      "!dist/**/*",
+      "!src/**/*backup*",
+      "!src/**/*backup*/**",
+      "!node_modules/koffi/build/koffi/{darwin,freebsd,linux,musl,openbsd}_*/**",
+      "!node_modules/koffi/build/koffi/win32_{arm64,ia32}/**",
+      "!node_modules/koffi/build/koffi/**/*.{exp,lib}",
+      "!node_modules/koffi/{src,vendor,doc}/**",
+      "!node_modules/koffi/{CHANGELOG.md,README.md,index.d.ts}",
+      "!node_modules/node-hid/{hidapi,src}/**",
+      "!node_modules/node-hid/prebuilds/{HID-darwin,HID-linux,HID_hidraw,HID-win32-arm64,HID-win32-ia32}*/**",
+      "!node_modules/node-hid/{binding.gyp,README.md,nodehid.d.ts}",
+      "!**/node_modules/**/{README,CHANGELOG,HISTORY}*.md",
+      "!**/node_modules/**/*.{ts,map,gyp,cc,cpp,c,h}"
+    ],
+    "electronLanguages": [
+      "pt-BR",
+      "en-US",
+      "es",
+      "es-419"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "build/icon.ico",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Hydraflow",
+      "license": "build/licenca.txt",
+      "installerLanguages": [
+        "pt_BR"
+      ],
+      "language": "1046",
+      "runAfterFinish": true,
+      "artifactName": "Hydraflow-Setup-${version}.exe",
+      "include": "build/installer.nsh"
+    },
+    "portable": {
+      "artifactName": "Hydraflow-Portatil-${version}.exe"
+    },
+    "extraResources": [
+      {
+        "from": "build/pawnio",
+        "to": "pawnio"
+      }
+    ]
+  },
+  "allowScripts": {
+    "electron-winstaller@5.4.0": true,
+    "koffi@2.13.0": true,
+    "node-hid@3.4.0": true
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "renderFailed": "Render failed repeatedly: {error}",
+  "hidNoAnswer": "Device not responding (HID)",
+  "hidListFailed": "Failed to list HID devices: {error}",
+  "ramPlugin": "Hydraflow Memory (SMBus)",
+  "gpuZone": "Zone",
+  "gpuWriteFailed": "The graphics card didn't accept the colors",
+  "gpuProvider": "NVIDIA (official illumination API)",
+  "saveNoDevice": "Device not found",
+  "saveUnsupported": "This device can't store effects in its own memory",
+  "saveFailed": "Saving failed",
+  "wledStrip": "WLED strip ({host})",
+  "wledProvider": "WLED (network)"
+}

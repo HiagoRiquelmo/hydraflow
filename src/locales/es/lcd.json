@@ -1,0 +1,15 @@
+{
+  "portBusy": "El puerto {port} de la pantalla está abierto en otro programa (normalmente ZEUS CAST). Ciérralo para que Hydraflow pueda usar la pantalla.",
+  "portGone": "El puerto {port} desapareció (cable desconectado o el cooler se reinició).",
+  "portOpen": "Windows no pudo abrir el puerto {port} (error {code}).",
+  "shortWrite": "escritura incompleta ({done} de {total} bytes)",
+  "hidBusy": "Windows no pudo abrir la pantalla por HID (otro programa, como ZEUS CAST, puede estar usándola): {error}",
+  "noAnswer": "La pantalla no respondió al comando \"{command}\" ({port}). Apaga y enciende el PC si sigue pasando.",
+  "badReply": "Respuesta no válida de la pantalla al comando \"{command}\": {error}.",
+  "refused": "La pantalla rechazó el comando \"{command}\" (código {code}).",
+  "imageRefused": "La pantalla rechazó la imagen ({reason}).",
+  "stopped": "La pantalla dejó de recibir imágenes: {error}",
+  "reply.short": "respuesta demasiado corta",
+  "reply.checksum": "la suma o la longitud de la respuesta no coinciden",
+  "reply.nostatus": "respuesta sin código de estado"
+}

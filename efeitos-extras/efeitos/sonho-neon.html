@@ -1,0 +1,32 @@
+<head>
+  <title>Sonho Neon</title>
+  <meta description="Ondas suaves de rosa e ciano que se misturam e deslizam, num clima de sonho retrô." />
+  <meta publisher="Hydraflow" />
+  <meta property="colorA" label="Cor 1" type="color" default="#ff2fd1" />
+  <meta property="colorB" label="Cor 2" type="color" default="#00e5ff" />
+  <meta property="colorC" label="Cor 3" type="color" default="#6a00ff" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="30" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  const W = 320, H = 200;
+  const rgb = c => [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16));
+  const mix = (a, b, k) => a.map((v, i) => Math.round(v + (b[i] - v) * k));
+  let t = 0;
+  function frame() {
+    t += speed / 3000;
+    const A = rgb(colorA), B = rgb(colorB), C = rgb(colorC);
+    // colunas de 4 px: cada uma é um degradê vertical entre as cores que ondulam
+    for (let x = 0; x < W; x += 4) {
+      const k1 = 0.5 + 0.5 * Math.sin(x / 47 + t * 6);
+      const k2 = 0.5 + 0.5 * Math.sin(x / 31 - t * 4 + 1.7);
+      const top = mix(A, C, k1), bottom = mix(B, A, k2);
+      const g = ctx.createLinearGradient(0, 0, 0, H);
+      g.addColorStop(0, `rgb(${top})`); g.addColorStop(0.5 + 0.3 * Math.sin(x / 60 + t * 3), `rgb(${mix(top, bottom, 0.5)})`); g.addColorStop(1, `rgb(${bottom})`);
+      ctx.fillStyle = g; ctx.fillRect(x, 0, 4, H);
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>

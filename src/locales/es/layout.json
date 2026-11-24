@@ -1,0 +1,12 @@
+{
+  "copyOne": "Selecciona solo un elemento para copiar",
+  "copied": "Ajustes del elemento copiados",
+  "pasted": "Ajustes pegados",
+  "flipX": "Invertir eje X",
+  "flipY": "Invertir eje Y",
+  "front": "Traer al frente",
+  "back": "Enviar al fondo",
+  "hideOthers": "Ocultar los demás",
+  "copy": "Copiar ajustes (Ctrl+C)",
+  "paste": "Pegar ajustes (Ctrl+V)"
+}

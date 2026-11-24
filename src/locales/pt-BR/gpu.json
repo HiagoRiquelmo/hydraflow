@@ -1,0 +1,16 @@
+{
+  "title": "Placas de vídeo",
+  "none": "Nenhuma placa de vídeo NVIDIA ou AMD encontrada pelos drivers.",
+  "nvidiaNoZones": "{name}: sem LEDs controláveis pela API oficial da NVIDIA (normal em placas sem RGB ou de fabricantes que usam um controlador próprio).",
+  "nvidiaZones": {
+    "one": "{name}: {n} zona de luz — aparece na lista como dispositivo.",
+    "other": "{name}: {n} zonas de luz — aparecem na lista como dispositivo."
+  },
+  "others": "Placas NVIDIA com a API de iluminação da NVIDIA e placas AMD da Sapphire, PowerColor, ASUS, MSI e Gigabyte funcionam direto pelo driver, sem outros programas.",
+  "amdZones": {
+    "one": "{name}: {n} LED controlado direto pelo driver da AMD — aparece na lista como dispositivo.",
+    "other": "{name}: {n} LEDs controlados direto pelo driver da AMD — aparecem na lista como dispositivo."
+  },
+  "amdSilent": "{name}: modelo com RGB conhecido, mas o chip de LEDs não respondeu (outro programa de RGB aberto, ou firmware diferente).",
+  "amdNoRgb": "{name}: sem LEDs conhecidos (placa de referência, vídeo integrado ou modelo ainda fora da lista)."
+}

@@ -1,0 +1,10 @@
+{
+  "noDxgi": "DXGI no disponible",
+  "noMonitor": "No se encontró el monitor principal",
+  "noD3d": "Direct3D 11 no disponible ({code})",
+  "noDuplication": "La duplicación de pantalla no es compatible",
+  "duplicateFailed": "No se pudo duplicar la pantalla ({code})",
+  "mipsFailed": "Error al preparar la reducción en la tarjeta gráfica",
+  "textureFailed": "Error al crear la textura ({code})",
+  "grabFailed": "Error al capturar ({code})"
+}

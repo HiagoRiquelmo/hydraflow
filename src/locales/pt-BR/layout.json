@@ -1,0 +1,12 @@
+{
+  "copyOne": "Selecione apenas um item para copiar",
+  "copied": "Configurações do item copiadas",
+  "pasted": "Configurações coladas",
+  "flipX": "Inverter eixo X",
+  "flipY": "Inverter eixo Y",
+  "front": "Trazer para frente",
+  "back": "Enviar para trás",
+  "hideOthers": "Ocultar os demais",
+  "copy": "Copiar configurações (Ctrl+C)",
+  "paste": "Colar configurações (Ctrl+V)"
+}

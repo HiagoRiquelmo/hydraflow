@@ -1,0 +1,48 @@
+<head>
+  <title>Empilhar</title>
+  <meta description="Blocos de cor caem e se empilham até encher o setup; quando enche, tudo se apaga e começa de novo." />
+  <meta publisher="Hydraflow" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="50" />
+  <meta property="columns" label="Colunas" type="number" min="4" max="32" default="16" />
+  <meta property="rainbow" label="Arco-íris" type="boolean" default="1" />
+  <meta property="color" label="Cor (se não arco-íris)" type="color" default="#00ffa2" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  const W = 320, H = 200;
+  let cols = 0, rows = 0, cw = 0, ch = 0, stacks = [], falling = [], hue = 0, fade = 0;
+  function reset() {
+    cols = Math.round(columns); cw = W / cols; ch = cw * 0.7; rows = Math.ceil(H / ch);
+    stacks = Array.from({ length: cols }, () => []); falling = []; fade = 0;
+  }
+  function drop() {
+    const free = stacks.map((s, i) => [s.length, i]).filter(([n]) => n < rows);
+    if (!free.length) { fade = 1; return; }
+    const [, c] = free[Math.floor(Math.random() * free.length)];
+    hue = (hue + 23) % 360;
+    falling.push({ c, y: -ch, color: rainbow ? `hsl(${hue},100%,55%)` : color });
+  }
+  function frame() {
+    if (Math.round(columns) !== cols) reset();
+    const v = speed / 12;
+    if (!fade && falling.length < 3 && Math.random() < speed / 400) drop();
+    ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
+    for (const f of falling) {
+      const floor = H - (stacks[f.c].length + 1) * ch;
+      f.y = Math.min(floor, f.y + v);
+      if (f.y >= floor) { stacks[f.c].push(f.color); f.done = true; }
+    }
+    falling = falling.filter(f => !f.done);
+    if (fade) { fade -= 0.015; if (fade <= 0) reset(); }
+    ctx.globalAlpha = fade || 1;
+    stacks.forEach((s, c) => s.forEach((col, r) => {
+      ctx.fillStyle = col; ctx.fillRect(c * cw + 1, H - (r + 1) * ch + 1, cw - 2, ch - 2);
+    }));
+    ctx.globalAlpha = 1;
+    for (const f of falling) { ctx.fillStyle = f.color; ctx.fillRect(f.c * cw + 1, f.y + 1, cw - 2, ch - 2); }
+    requestAnimationFrame(frame);
+  }
+  reset();
+  requestAnimationFrame(frame);
+</script>

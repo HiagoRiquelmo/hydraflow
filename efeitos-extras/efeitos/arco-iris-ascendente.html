@@ -1,0 +1,32 @@
+<head>
+  <title>Arco-íris Ascendente</title>
+  <meta description="Faixas de arco-íris sobem continuamente pelo setup, de baixo para cima." />
+  <meta publisher="Hydraflow" />
+  <meta property="speed" label="Velocidade" type="number" min="1" max="100" default="40" />
+  <meta property="width" label="Largura das faixas" type="number" min="5" max="100" default="45" />
+  <meta property="saturation" label="Saturação" type="number" min="0" max="100" default="100" />
+  <meta property="direction" label="Direção" type="combobox" values="Subir,Descer,Diagonal" default="Subir" />
+</head>
+<body style="margin:0;background:#000"><canvas id="exCanvas" width="320" height="200"></canvas></body>
+<script>
+  const ctx = document.getElementById("exCanvas").getContext("2d");
+  let t = 0;
+  function frame() {
+    t += speed / 40;
+    const span = 40 + width * 6; // pixels por volta completa no espectro
+    const sign = direction === "Descer" ? -1 : 1;
+    for (let y = 0; y < 200; y += 2) {
+      if (direction === "Diagonal") {
+        for (let x = 0; x < 320; x += 4) {
+          ctx.fillStyle = `hsl(${((y + x * 0.5 + t) / span * 360) % 360},${saturation}%,50%)`;
+          ctx.fillRect(x, y, 4, 2);
+        }
+      } else {
+        ctx.fillStyle = `hsl(${(((y + t * sign) / span * 360) % 360 + 360) % 360},${saturation}%,50%)`;
+        ctx.fillRect(0, y, 320, 2);
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+</script>
