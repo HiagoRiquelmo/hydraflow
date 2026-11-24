@@ -93,10 +93,6 @@
   h1 .hollow{color:transparent;-webkit-text-stroke:2px var(--ink)}
   h1 .fill{color:var(--ink)}
   h1 .mark{color:var(--ink);position:relative;display:inline-block}
-  h1 .mark::after{
-    content:"";position:absolute;left:2px;right:2px;bottom:.06em;height:.11em;
-    background:var(--ink);opacity:.16;border-radius:2px;z-index:-1;
-  }
   .lead{max-width:46ch;font-size:clamp(15px,1.15vw,17.5px);color:#0a2b1e;font-weight:400}
   .hero-actions{display:flex;align-items:center;gap:22px;margin-top:34px;flex-wrap:wrap}
   .pill{
@@ -316,8 +312,8 @@
         <div>
           <div class="eyebrow micro"><span class="dot"></span> RGB open source · Windows 10 e 11 <span class="rule"></span></div>
           <h1>
-            <span class="hollow">Luz que</span><br>
-            <span class="fill">acompanha</span><br>
+            <span class="hollow">Luz que</span>
+            <span class="fill">acompanha</span>
             <span class="mark">você.</span>
           </h1>
           <p class="lead">
